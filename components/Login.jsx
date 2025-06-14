@@ -42,9 +42,9 @@ export default function Login() {
     }
 
     return (
-        <View>
-            <Image style={styles.image} source={require('../assets/splash-icon.png')} />
-            <Text>Welcome back!</Text>
+        <View className="flex flex-col px-5 py-2 justify-center self-center gap-4">
+            <Image className="size-72" source={require('../assets/splash-icon.png')} />
+            <Text className="text-lg font-bold">Welcome back!</Text>
             <TextInput placeholder='Username' onChangeText={setUsername} />
             <TextInput placeholder='Password' onChangeText={setPassword} />
             <Button title='Sign in' onPress={handleLogin} />
