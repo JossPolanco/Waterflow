@@ -5,7 +5,15 @@ export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    // validate that all the inputs are filled
+    const validateFileds = () => {
+        if(!username || !password) {
+            Alert.alert('Error', 'Todos los campos son obligatorios')
+        }
+    }
+
     const handleLogin = async () => {
+        if(!validateFileds()) return;
         console.log('Me picaste')
         try {
             const response = await fetch('https://x3wq0k4r-3000.usw3.devtunnels.ms/login_service', {
@@ -14,8 +22,8 @@ export default function Login() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: username,
-                    password: password
+                    'username': username.trim(),
+                    'password': password.trim()
                 }),
             });
 
@@ -25,10 +33,10 @@ export default function Login() {
             if (response.ok) {
                 Alert.alert('Éxito', `Bienvenido, ${data.user.username}`);
             } else {
-                Alert.alert('Error', data.message || 'Credenciales incorrectas');
+                Alert.alert('Error', 'Credenciales incorrectas');
             }
         } catch (error) {
-            Alert.alert('Error', 'Hubo un problema de conexión con la API');
+            Alert.alert('Error', 'Hubo un problema con el servidor, intenta mas tarde');
             console.error(error);
         }
     }
