@@ -1,15 +1,20 @@
 import { StyleSheet, Text, View, Image, TextInput, Button, Alert } from 'react-native';
 import React, { useState } from 'react';
+import { useRouter } from "expo-router"
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    // hook for the routing
+    const router = useRouter();
 
     // validate that all the inputs are filled
     const validateFileds = () => {
         if(!username || !password) {
             Alert.alert('Error', 'Todos los campos son obligatorios')
+            return false;
         }
+        return true
     }
 
     const handleLogin = async () => {
@@ -22,8 +27,8 @@ export default function Login() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    'username': username.trim(),
-                    'password': password.trim()
+                    username: username.trim(),
+                    password: password.trim()
                 }),
             });
 
@@ -31,7 +36,8 @@ export default function Login() {
             console.log(data)
 
             if (response.ok) {
-                Alert.alert('Éxito', `Bienvenido, ${data.user.username}`);
+                router.replace('/home');                
+
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
             }
@@ -42,7 +48,7 @@ export default function Login() {
     }
 
     return (
-        <View className="flex flex-col px-5 py-2 justify-center self-center gap-4">
+        <View className="flex flex-col justify-center self-center gap-4 bg-gray-400">
             <Image className="size-72" source={require('../assets/splash-icon.png')} />
             <Text className="text-lg font-bold">Welcome back!</Text>
             <TextInput placeholder='Username' onChangeText={setUsername} />
