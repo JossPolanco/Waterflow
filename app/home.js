@@ -3,7 +3,7 @@ import { Text, ScrollView } from "react-native"
 export default function Home(){
     return (
         <ScrollView>
-            <Text>You are in home</Text>
+            <Text style={{ justifyContent: center, alignItems: center }}>You are in home</Text>
         </ScrollView>
     );
 }
