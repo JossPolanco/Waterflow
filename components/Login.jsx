@@ -21,7 +21,7 @@ export default function Login() {
         if(!validateFileds()) return;
         console.log('Me picaste')
         try {
-            const response = await fetch('https://x3wq0k4r-3000.usw3.devtunnels.ms/login_service', {
+            const response = await fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/login_service', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default function Login() {
             console.log(data)
 
             if (response.ok) {
-                router.replace('/home');                
+                router.replace('/tabs/homeRoute');                
 
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
