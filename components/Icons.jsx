@@ -1,5 +1,4 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export const LogoIcon = (size) => (
     <Image name="waterflow_logo" size={size} source={require('../assets/splash-icon.png')} />
