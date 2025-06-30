@@ -15,11 +15,11 @@ export default function NavigationLayout(){
             }}/>
             <Tabs.Screen name='notificationsRoute' options={{
                 title: 'Notifications',
-                tabBarIcon: ({color, size}) => NotificationsIcon()
+                tabBarIcon: ({color, size}) => NotificationsIcon(color, size)
             }}/>
             <Tabs.Screen name='settingsRoute' options={{
                 title: 'Settings',
-                tabBarIcon: ({color, size}) => HomeISettingsIconcon()
+                tabBarIcon: ({color, size}) => SettingsIcon(color, size)
             }}/>
         </Tabs>
     )

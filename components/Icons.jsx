@@ -6,22 +6,22 @@ export const LogoIcon = (size) => (
     <Image name="waterflow_logo" size={size} source={require('../assets/splash-icon.png')} />
 );
 
-export const HomeIcon = (size, color) => (
+export const HomeIcon = (size, color = 'black') => (
     <FontAwesome name="home" size={size} color={color} />
 );
 
-export const DashboardIcon = (size, color) => (
+export const DashboardIcon = (size, color = 'black') => (
     <FontAwesome name="tachometer" size={size} color={color} />
 );
 
-export const SettingsIcon = () => (
-    <Ionicons name="settings" size={24} color="black" />
+export const SettingsIcon = (size, color = 'black') => (
+    <Ionicons name="settings" size={size} color={color} />
 );
 
-export const NotificationsIcon = () => (
-    <Ionicons name="notifications" size={24} color="black" />
+export const NotificationsIcon = (size, color = 'black') => (
+    <Ionicons name="notifications" size={size} color={color} />
 );
 
-export const UserIcon = () => (
-    <EvilIcons name="user" size={24} color="black" />
+export const UserIcon = (size, color = 'black') => (
+    <EvilIcons name="user" size={size} color={color} />
 );
