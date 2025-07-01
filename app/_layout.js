@@ -1,19 +1,11 @@
-import { Slot, Stack } from "expo-router";
-import { StyleSheet, View, Text } from "react-native";
+import { Stack } from "expo-router";
 import "../global.css"
 
 
-export default function Layout() {
+export default function IndexLayout() {
     return (
-        <View style={{ flex: 1}}>
-            <Slot/>
-            {/* <Text className="justify-center self-center">Hola tonotos</Text> */}
-        </View>
-    );
+        <Stack
+            screenOptions={{headerShown: false,}}
+        />
+    )
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         display: flex,
-//     }
-// })

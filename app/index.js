@@ -1,18 +1,11 @@
 import { StyleSheet, View, Text } from 'react-native'
+import { Redirect } from 'expo-router';
 import Login from '../components/Login';
-
+import Home from '../components/Home'
 
 export default function Index () {
+    // return <Redirect href="/tabs/homeRoute.js" />;
     return (
-        <View>
-            <Login/>   
-            {/* <Text style={ styles.text }>Hola pepe</Text>      */}
-        </View>
-    );
+        <Login/>
+    )
 }
-
-const styles = StyleSheet.create({
-    text: {
-        color: "red"
-    }
-}) 

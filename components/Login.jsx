@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, Alert, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from "expo-router"
 
@@ -36,7 +36,7 @@ export default function Login() {
             console.log(data)
 
             if (response.ok) {
-                router.replace('/home');                
+                router.replace('/tabs/homeRoute');                
 
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
@@ -48,19 +48,26 @@ export default function Login() {
     }
 
     return (
-        <View className="flex flex-col justify-center self-center gap-4 bg-gray-400">
-            <Image className="size-72" source={require('../assets/splash-icon.png')} />
-            <Text className="text-lg font-bold">Welcome back!</Text>
-            <TextInput placeholder='Username' onChangeText={setUsername} />
-            <TextInput placeholder='Password' onChangeText={setPassword} />
-            <Button title='Sign in' onPress={handleLogin} />
+        <View className="flex flex-col justify-center gap-10 bg-blue-200 h-full">
+            <View className="w-full flex-1 px-10 justify-center items-center pt-8">
+                <View className="justify-center items-center gap-10">
+                    <View>
+                        <Image className="w-32 h-32" source={require('../assets/logo_without_bg.png')} />
+                    </View>
+                    <View className="justify-start">
+                        <Text className="text-7xl text-white font-bold">Hello!</Text>
+                        <Text className="text-2xl text-white font-bold">Welcome to Waterflow</Text>
+                    </View>
+                </View>
+            </View>
+            <View className="gap-5 px-10 flex-1 rounded-[60] pt-16 bg-gray-100">
+                <Text className="text-blue-200 text-4xl font-bold">Login</Text>
+                <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Username' onChangeText={setUsername} />
+                <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Password' onChangeText={setPassword} />
+                <Pressable className="bg-blue-500 rounded-full py-4 items-center mt-2 active:bg-blue-700" onPress={handleLogin}>
+                    <Text className="text-white text-base font-semibold text-center">Login</Text>
+                </Pressable>
+            </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    image: {
-        width: 300,
-        height: 300,
-    }
-})
