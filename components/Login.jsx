@@ -48,9 +48,9 @@ export default function Login() {
     }
 
     return (
-        <View className="flex flex-col justify-center gap-10 bg-gray-100">
-            <View className="bg-blue-200 w-full px-10 py-6">
-                <View className="justify-center items-center gap-5">
+        <View className="flex flex-col justify-center gap-10 bg-blue-200 h-full">
+            <View className="w-full flex-1 px-10 justify-center items-center pt-8">
+                <View className="justify-center items-center gap-10">
                     <View>
                         <Image className="w-32 h-32" source={require('../assets/logo_without_bg.png')} />
                     </View>
@@ -60,12 +60,12 @@ export default function Login() {
                     </View>
                 </View>
             </View>
-            <View className="gap-5 px-10 rounded-t-sm">
-                <Text className="text-2xl font-bold">Login</Text>
-                <TextInput className="bg-white rounded-full px-4" placeholder='Username' onChangeText={setUsername} />
-                <TextInput className="bg-white rounded-full px-4" placeholder='Password' onChangeText={setPassword} />
-                <Pressable className="bg-blue-500 rounded-full py-3 items-center mt-2 active:bg-blue-700" onPress={handleLogin}>
-                    <Text className="text-white text-base font-semibold">Login</Text>
+            <View className="gap-5 px-10 flex-1 rounded-[60] pt-16 bg-gray-100">
+                <Text className="text-blue-200 text-4xl font-bold">Login</Text>
+                <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Username' onChangeText={setUsername} />
+                <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Password' onChangeText={setPassword} />
+                <Pressable className="bg-blue-500 rounded-full py-4 items-center mt-2 active:bg-blue-700" onPress={handleLogin}>
+                    <Text className="text-white text-base font-semibold text-center">Login</Text>
                 </Pressable>
             </View>
         </View>
