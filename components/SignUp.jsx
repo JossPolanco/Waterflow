@@ -60,6 +60,7 @@ export default function SignUp() {
 
             if (response.status == 'success') {
                 Alert.alert('Éxito', `Bienvenido,`);
+                router.back()
             } else {
                 Alert.alert('Error', response.status);
             }
