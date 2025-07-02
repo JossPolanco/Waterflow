@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, Alert, Pressable } from 'react-native';
 import React, { useState } from 'react';
+import { useRouter } from "expo-router"
+
 
 export default function SignUp() {
     const [firstname, setFirstname] = useState('');
@@ -8,6 +10,9 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
+
+    // hook for the routing
+    const router = useRouter()
 
     const validateFields = () => {
         // validate that all the inputs are filled
@@ -28,7 +33,7 @@ export default function SignUp() {
         return true;
     }
 
-    const handleLogin = async () => {
+    const handleSignUp = async () => {
         // if the fields have an error, return
         if(!validateFields()) return;
 
@@ -64,26 +69,32 @@ export default function SignUp() {
         }
     }
     return (
-        <View >
-            <Image style={styles.image} source={require('../assets/splash-icon.png')} />
-            <Text>Get Started</Text>
-            <TextInput placeholder='Firstname' onChangeText={setFirstname} />
-            <TextInput placeholder='Lastname' onChangeText={setLastname} />
-            <TextInput placeholder='Username' onChangeText={setUsername} />
-            <TextInput placeholder='Email' onChangeText={setEmail} />
-            <TextInput placeholder='Password' onChangeText={setPassword} />
-            <TextInput placeholder='Confirm password' onChangeText={setConfirmPassword} />
-            <Button title='Sign in' onPress={handleLogin} />
-
-
-
+        <View className="flex-1 justify-center bg-blue-200 gap-5">
+            <View className="justify-center items-center pt-10 gap-2">
+                <Image className="size-32" source={require('../assets/logo_without_bg.png')} />
+                <Text className="text-3xl text-white font-bold">Get Started</Text>
+            </View>
+            <View className="bg-gray-100 flex-1 rounded-t-[60] px-10 gap-5">
+                <View className="flex-row justify-start pt-6">                    
+                    <Pressable onPress={() => router.back()}>
+                        <Text className="text-blue-300 font-semibold">← Back to login</Text>
+                    </Pressable>
+                </View>
+                <View className="gap-3">
+                    <Text className="text-blue-200 text-4xl font-bold">Sign Up</Text>
+                    <View className="gap-5">
+                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Firstname' onChangeText={setFirstname} />
+                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Lastname' onChangeText={setLastname} />
+                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Username' onChangeText={setUsername} />
+                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Email' onChangeText={setEmail} />
+                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Password' onChangeText={setPassword} />
+                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Confirm password' onChangeText={setConfirmPassword} />
+                        <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 active:bg-blue-700" onPress={handleSignUp}>
+                            <Text className="text-white text-base font-semibold text-center">Login</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    image: {
-        width: 300,
-        height: 300,
-    }
-})
