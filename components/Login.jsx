@@ -36,7 +36,7 @@ export default function Login() {
             console.log(data)
 
             if (response.ok) {
-                router.replace('/tabs/homeRoute');                
+                router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.id ,username: data.username}});                
 
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
