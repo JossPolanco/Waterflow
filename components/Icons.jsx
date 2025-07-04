@@ -1,6 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
 export const LogoIcon = (size) => (
     <Image name="waterflow_logo" size={size} source={require('../assets/splash-icon.png')} />
@@ -25,3 +26,7 @@ export const NotificationsIcon = (size, color = 'black') => (
 export const UserIcon = (size, color = 'black') => (
     <EvilIcons name="user" size={size} color={color} />
 );
+
+export const ReloadIcon = (size, color = 'black') => {
+    <SimpleLineIcons name="reload" size={size} color={color} />
+}

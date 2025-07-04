@@ -4,7 +4,8 @@ import { useLocalSearchParams } from "expo-router";
 
 export default function Home(){
     const { user_id, username } = useLocalSearchParams(); 
-    const { waterFlowActive, setWaterFlowActive } = useState(undefined)
+    const [ updateFetch, setUpdateFetch ] = useState(false);
+    const [ waterFlowActive, setWaterFlowActive ] = useState(undefined);
 
     console.log('user_id:', user_id, 'username: ', username);
     useEffect(() => {
@@ -24,12 +25,12 @@ export default function Home(){
             }
         }
         fetchWaterflows()            
-    }, [])
+    }, [updateFetch])
 
     return (
         <View className="justify-center items-center">
             <Text className='text-red-500'>Home screen</Text>
-            <Pressable onPress={() => setWaterFlowActive(!waterFlowActive)}>
+            <Pressable onPress={() => setUpdateFetch(!updateFetch)}>
                 <Text className="text-blue-500 font-semibold">Close or open</Text>
             </Pressable>
         </View>
