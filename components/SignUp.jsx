@@ -47,7 +47,7 @@ export default function SignUp() {
         }
 
         try {
-            const result = await fetch('https://x3wq0k4r-3000.usw3.devtunnels.ms/sign_up_service', {
+            const result = await fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/sign_up_service', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
