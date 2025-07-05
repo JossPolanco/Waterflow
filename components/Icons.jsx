@@ -32,6 +32,6 @@ export const ReloadIcon = (size, color = 'black') => (
     <SimpleLineIcons name="reload" size={size} color={color} />
 );
 
-export const TuneSettings = (size, color = 'black') => (
+export const TuneSettingsIcon = (size, color = 'black') => (
     <MaterialIcons name="tune" size={size} color={color} />
 );

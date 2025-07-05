@@ -1,6 +1,6 @@
 import { View, Text, Pressable, Switch } from "react-native"
 import { useLocalSearchParams } from "expo-router";
-import { Waterflow } from "./Waterflow"
+import Waterflow from "./Waterflow";
 
 export default function Home(){
     const { user_id, username } = useLocalSearchParams(); 
@@ -38,5 +38,5 @@ export default function Home(){
 
             <Waterflow/>
         </View>
-    )
+    );
 }
