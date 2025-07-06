@@ -4,12 +4,10 @@ import { useState, useEffect } from "react";
 import Waterflow from "./Waterflow";
 
 export default function Home(){
-    const { user_id, username } = useLocalSearchParams(); 
+    const { user_id } = useLocalSearchParams(); 
     const [ updateFetch, setUpdateFetch ] = useState(false);    
     const [ waterflowDevices, setWaterflowDevices ] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(false);
-    
-    console.log('user_id:', user_id, 'username: ', username);
+    const [ isLoading, setIsLoading ] = useState(false);    
 
     useEffect(() => {
         async function fetchWaterflows() {
@@ -30,14 +28,14 @@ export default function Home(){
                 console.log('Error al obtener dispositivos:', error);
                 setWaterflowDevices([]);
             } finally {
-                setIsLoading(false); // Terminamos el loading
+                setIsLoading(false); 
             }
         }
         fetchWaterflows()            
     }, [updateFetch])
 
     return (
-        <View className="justify-center items-center mt-10 px-10 bg-gray-100">
+        <View className="justify-center items-center mt-6 px-10 gap-4 bg-gray-100">
             {/* shows this while is loading all the devices */}
             {isLoading && (
                 <View className="mt-5">
@@ -45,13 +43,14 @@ export default function Home(){
                 </View>
             )}
             
+            {/* Draws each waterflow device of the user */}
             {!isLoading && waterflowDevices.length > 0 && (
-                <View className="mt-5 w-full">
+                <View className="w-full">
                     {waterflowDevices.map((device, index) => (
-                        <View key={device.mac} className="mb-4">
+                        <View key={device.mac + index}>
                             <Waterflow 
-                                mac={device.mac}
-                                waterflowName={'hola' || `Dispositivo ${index + 1}`}
+                                mac={device.MAC}
+                                waterflowName={'Test' || `Dispositivo ${index + 1}`}
                                 isConnected={true}
                                 isOpen={device.active}
                             />

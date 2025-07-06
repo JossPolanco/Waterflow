@@ -1,12 +1,16 @@
 import { View, Pressable, Switch, Text } from "react-native"
 import { useEffect, useState } from "react";
 import { TuneSettingsIcon } from "./Icons";
+import { Redirect } from 'expo-router';
+import { useRouter } from "expo-router"
 
 
 export default function Waterflow({mac = '', waterflowName = '', isConnected = false, isOpen = false}) {
     const [waterIsConnected, waterSetIsConnected] = useState(isConnected);
     const [waterIsOpen, setWaterIsOpen] = useState(isOpen)
-    const toggleSwitch = () => setWaterIsOpen(prev => {
+    const router = useRouter()
+
+    const toggleIsOpen = () => setWaterIsOpen(prev => {
         const newValue = !prev;
 
         let data = {
@@ -15,28 +19,28 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
         }
 
         sendCommand(data);
-        
+
         return newValue;
     });
     
-    const sendCommand = async (data) => {
+    async function sendCommand(data) {          
         // send the order to open the waterflow
-        const response = fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/waterflow/send-command', {
+        const response = await fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/waterflow/send-command', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data),
         }); 
+        
+        const result = await response.json()        
 
-        const result = await response.json()
-
-        console.log(result)
-
-    }
-
-    if(waterIsConnected){
-        console.log('ESTA CONECTADO')
+        if (result.status == 'success') {                
+            console.log('✅ Everithing was right');
+        } else {                
+            console.log('❌ Something went wrong with server: ', result.message);
+            alert(`Error: ${result.message}`);
+        }             
     }
 
     return (
@@ -50,6 +54,7 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
                     <View>
                         <Pressable onPress={() => {
                             console.log('ENTRAR A SETTINGS')
+                            router.replace({pathname: '/tabs/settingsRoute', params: { waterflow_mac: mac }});                
                         }}>
                             {TuneSettingsIcon(30, 'black')}
                         </Pressable>
@@ -62,7 +67,7 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
                         trackColor={{false: '#767577', true: '#81b0ff'}}
                         thumbColor={waterIsOpen ? '#ffffff' : '#f4f3f4'}
                         ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
+                        onValueChange={toggleIsOpen}
                         value={waterIsOpen}
                         />
                     </View>

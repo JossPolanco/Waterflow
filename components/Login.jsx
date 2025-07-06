@@ -36,7 +36,7 @@ export default function Login() {
             console.log(data)
 
             if (response.ok) {
-                router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.user.id ,username: data.user.username}});                
+                router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.user.id }});                
 
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
@@ -49,7 +49,7 @@ export default function Login() {
 
     return (
         <View className="flex-1 justify-center gap-10 bg-blue-200">
-            <View className="w-full  px-10 justify-center items-center pt-10">
+            <View className="w-full px-10 justify-center items-center pt-10">
                 <View className="justify-center items-center gap-5">
                     <View>
                         <Image className="w-32 h-32" source={require('../assets/logo_without_bg.png')} />
