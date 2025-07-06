@@ -7,6 +7,6 @@ import SignUp from '../components/SignUp';
 export default function Index () {
     // return <Redirect href="/tabs/homeRoute.js" />;
     return (
-        <Home/>
+        <Login/>
     )
 }
