@@ -1,9 +1,5 @@
-import { View, Text } from "react-native";
+import Settings from "../../components/Settings"
 
 export default function SettinsRoute(){
-    return (
-        <View>
-            <Text>HOLA SETTINGS</Text>
-        </View>
-    )
+    return <Settings/>
 }

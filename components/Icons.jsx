@@ -1,8 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
-import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { colorScheme } from 'nativewind';
 
 export const LogoIcon = (size) => (
     <Image name="waterflow_logo" size={size} source={require('../assets/splash-icon.png')} />
@@ -28,10 +30,18 @@ export const UserIcon = (size, color = 'black') => (
     <EvilIcons name="user" size={size} color={color} />
 );
 
-export const ReloadIcon = (size, color = 'black') => (
-    <SimpleLineIcons name="reload" size={size} color={color} />
+export const TempIcon = ({size = 24, color = 'black'}) => (
+    <FontAwesome6 name="temperature-low" size={size} color={color}/>
 );
 
-export const TuneSettingsIcon = (size, color = 'black') => (
-    <MaterialIcons name="tune" size={size} color={color} />
+export const LogoUser = ({size = 24, color = 'black'}) => (
+    <FontAwesome name="user-circle" size={size} color={color}/>
+);
+
+export const TimerIcon = ({size = 24, color = 'black'}) => (
+    <MaterialIcons name="access-time" size={size} color={color}/>
+);
+
+export const ClockIcon = ({size = 24, color = 'black'}) => (
+    <MaterialCommunityIcons name="timer-sand-empty" size={size} color={color}/>
 );

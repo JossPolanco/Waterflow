@@ -1,26 +1,68 @@
 import { Tabs } from "expo-router";
-import { HomeIcon, DashboardIcon, NotificationsIcon, SettingsIcon } from "../../components/Icons";
+import { HomeIcon, DashboardIcon, NotificationsIcon, SettingsIcon, LogoUser } from "../../components/Icons";
+import { View } from "react-native";
 
+export default function NavigationLayout() {
+  return (
+    <Tabs
+      screenOptions={{
+        // Estilos del tab bar
+        tabBarStyle: {
+          backgroundColor: '#1795D4',
+          borderTopWidth: 0,
+          height: 50,
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        },
+        tabBarActiveTintColor: '#FFFFFF',
+        tabBarInactiveTintColor: '#FFFFFF',
 
-export default function NavigationLayout(){
-    return (
-        <Tabs>
-            <Tabs.Screen name='homeRoute' options={{
-                title: 'Home',
-                tabBarIcon: ({color, size}) => HomeIcon(size, color)
-            }}/>
-            <Tabs.Screen name='dashboardRoute' options={{
-                title: 'Dashboard',
-                tabBarIcon: ({color, size}) => DashboardIcon(size, color)
-            }}/>
-            <Tabs.Screen name='notificationsRoute' options={{
-                title: 'Notifications',
-                tabBarIcon: ({color, size}) => NotificationsIcon(size, color)
-            }}/>
-            <Tabs.Screen name='settingsRoute' options={{
-                title: 'Settings',
-                tabBarIcon: ({color, size}) => SettingsIcon(size, color)
-            }}/>
-        </Tabs>
-    )
+        // Estilos del header
+        headerStyle: {
+          backgroundColor: '#1795D4',
+        },
+        headerTintColor: '#FFFFFF',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 27,
+        },
+
+        // Ícono al final del header
+        headerRight: () => (
+          <View style={{ marginRight: 15 }}>
+            <LogoUser size={30} color="white"/>
+          </View>
+        ),
+      }}
+    >
+      <Tabs.Screen
+        name="homeRoute"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => HomeIcon(size, color),
+        }}
+      />
+      <Tabs.Screen
+        name="dashboardRoute"
+        options={{
+          title: 'Dashboard',
+          tabBarIcon: ({ color, size }) => DashboardIcon(size, color),
+        }}
+      />
+      <Tabs.Screen
+        name="notificationsRoute"
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ color, size }) => NotificationsIcon(size, color),
+        }}
+      />
+      <Tabs.Screen
+        name="settingsRoute"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color, size }) => SettingsIcon(size, color),
+        }}
+      />
+    </Tabs>
+  );
 }
