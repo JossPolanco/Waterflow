@@ -5,10 +5,10 @@ import Home from '../components/Home'
 import SignUp from '../components/SignUp';
 
 export default function Index () {
-    return <Redirect href="/tabs/settingsRoute.js"/>;
-    /*
+    // return <Redirect href="/tabs/settingsRoute.js"/>;
+    
     return (
         <Login/>
     )
-    */
+    
 }
