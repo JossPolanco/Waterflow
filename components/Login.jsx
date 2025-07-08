@@ -21,7 +21,7 @@ export default function Login() {
         if(!validateFileds()) return;
         console.log('Me picaste')
         try {
-            const response = await fetch('https://x3wq0k4r-3000.usw3.devtunnels.ms/login_service', {
+            const response = await fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/login_service', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default function Login() {
             console.log(data)
 
             if (response.ok) {
-                router.replace('/tabs/homeRoute');                
+                router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.user.id }});                
 
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
@@ -49,7 +49,7 @@ export default function Login() {
 
     return (
         <View className="flex-1 justify-center gap-10 bg-blue-200">
-            <View className="w-full  px-10 justify-center items-center pt-10">
+            <View className="w-full px-10 justify-center items-center pt-10">
                 <View className="justify-center items-center gap-5">
                     <View>
                         <Image className="w-32 h-32" source={require('../assets/logo_without_bg.png')} />
