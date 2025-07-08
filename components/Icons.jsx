@@ -45,3 +45,7 @@ export const TimerIcon = ({size = 24, color = 'black'}) => (
 export const ClockIcon = ({size = 24, color = 'black'}) => (
     <MaterialCommunityIcons name="timer-sand-empty" size={size} color={color}/>
 );
+
+export const TuneSettingsIcon = ({size = 24, color = 'black'}) => (
+    <MaterialIcons name="tune" size={size} color={color} />
+);

@@ -9,8 +9,6 @@ export default function NavigationLayout() {
         // Estilos del tab bar
         tabBarStyle: {
           backgroundColor: '#1795D4',
-          borderTopWidth: 0,
-          height: 50,
           justifyContent: 'space-around',
           alignItems: 'center',
         },

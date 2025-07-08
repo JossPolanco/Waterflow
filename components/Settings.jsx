@@ -147,14 +147,21 @@ export default function Settings() {
     scheduleTimers();
     planificarEnBackground();
     
-    const formatTime = (time) => {
-      return `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
+    const formatTimeInt = (time) => {
+      const hours = time.getHours().toString().padStart(2, '0');
+      const minutes = time.getMinutes().toString().padStart(2, '0');
+      return parseInt(hours + minutes, 10);
     };
     
+    const startTimeInt = formatTimeInt(startTime);
+    const endTimeInt = formatTimeInt(endTime);
+
     Alert.alert(
       'Programación Guardada',
-      `La válvula se cerrará a las ${formatTime(startTime)} y se abrirá a las ${formatTime(endTime)}`
+      `La válvula se cerrará a las ${startTimeInt} y se abrirá a las ${endTimeInt}`
     );
+
+    console.log('DATA TO INSERT: ', startTimeInt, ' ', endTimeInt, 'extra: ', value)
   };
 
   // Mostrar selector de tiempo
