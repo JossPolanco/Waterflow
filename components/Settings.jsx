@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, Button, Alert } from "react-native";
-import { TempIcon, TimerIcon, ClockIcon } from "./Icons"; 
+import { TempIcon, TimerIcon } from "./Icons"; 
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as TaskManager from 'expo-task-manager';

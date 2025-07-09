@@ -4,6 +4,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Entypo from '@expo/vector-icons/Entypo';
+import Foundation from '@expo/vector-icons/Foundation';
+import Feather from '@expo/vector-icons/Feather';
 import { colorScheme } from 'nativewind';
 
 export const LogoIcon = (size) => (
@@ -48,4 +51,16 @@ export const ClockIcon = ({size = 24, color = 'black'}) => (
 
 export const TuneSettingsIcon = ({size = 24, color = 'black'}) => (
     <MaterialIcons name="tune" size={size} color={color} />
+);
+
+export const CrossIcon = ({size = 24, color = 'black'}) => (
+    <Entypo name="cross" size={size} color={color} />
+);
+
+export const AlertIcon = ({size = 24, color = 'black'}) => (
+    <Foundation name="alert" size={size} color={color} />
+);
+
+export const TrashIcon = ({size = 24, color = 'black'}) => (
+    <Feather name="trash-2" size={size} color={color} />
 );

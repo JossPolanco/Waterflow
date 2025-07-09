@@ -47,10 +47,10 @@ export default function SignUp() {
         }
 
         try {
-            const result = await fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/sign_up_service', {
+            const result = await fetch('https://v4z5d761-3000.usw3.devtunnels.ms/sign_up_service', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', 
                 },
                 body: JSON.stringify(data),
             });
