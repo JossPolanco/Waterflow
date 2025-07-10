@@ -13,7 +13,7 @@ export default function Home(){
         async function fetchWaterflows() {
             setIsLoading(true); 
             try {
-                const response = await fetch(`https://gpmknnnz-3000.usw3.devtunnels.ms/waterflow/info-waterflow/${user_id}`, {
+                const response = await fetch(`https://v4z5d761-3000.usw3.devtunnels.ms/info-waterflow/${user_id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -25,7 +25,7 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
     
     async function sendCommand(data) {          
         // send the order to open the waterflow
-        const response = await fetch('https://gpmknnnz-3000.usw3.devtunnels.ms/waterflow/send-command', {
+        const response = await fetch('https://v4z5d761-3000.usw3.devtunnels.ms/send-command', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

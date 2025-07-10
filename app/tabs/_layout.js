@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { HomeIcon, DashboardIcon, NotificationsIcon, SettingsIcon, LogoUser } from "../../components/Icons";
+import { HomeIcon, DashboardIcon, NotificationsIcon, SettingsIcon, LogoUser, CrossIcon } from "../../components/Icons";
 import { View } from "react-native";
 
 export default function NavigationLayout() {
@@ -51,6 +51,11 @@ export default function NavigationLayout() {
         name="notificationsRoute"
         options={{
           title: 'Notifications',
+          headerRight: () => (
+            <View style={{ marginRight: 16 }}>
+              <CrossIcon size={30} color="white" />
+            </View>
+          ),
           tabBarIcon: ({ color, size }) => NotificationsIcon(size, color),
         }}
       />
@@ -58,6 +63,11 @@ export default function NavigationLayout() {
         name="settingsRoute"
         options={{
           title: 'Settings',
+          headerRight: () => (
+            <View style={{ marginRight: 16 }}>
+              <CrossIcon size={30} color="white" />
+            </View>
+          ),
           tabBarIcon: ({ color, size }) => SettingsIcon(size, color),
         }}
       />

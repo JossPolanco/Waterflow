@@ -1,9 +1,5 @@
-import { View, Text } from "react-native";
+import Alerts from "../../components/Alerts"
 
 export default function NotificationsRoute(){
-    return (
-        <View>
-            <Text>HOLA NOTIFICATIONS</Text>
-        </View>
-    )
+    return <Alerts/>
 }
