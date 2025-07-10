@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Switch, Button, Alert } from "react-native";
-import { TempIcon, TimerIcon } from "./Icons"; 
+import { View, Text, Switch, Alert, TouchableOpacity  } from "react-native";
+import { TempIcon, TimerIcon, CheckIcon } from "./Icons"; 
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as TaskManager from 'expo-task-manager';
@@ -243,28 +243,34 @@ export default function Settings() {
         
         {/* Mostrar configuración solo si el timer está activado */}
         {isTimerEnabled && (
-          <View className='flex flex-col justify-center items-center w-60 mt-4 gap-4'>
-            <Button 
-              title="Elegir rango horario" 
-              onPress={mostrarSelectorTiempo}
-              style={{ backgroundColor:'#185EFB', borderRadius: 20, }}
-            />
-            
-            {/* Mostrar horas seleccionadas */}
-            <View className='flex gap-2'>
-              <Text className='text-center text-[#1E3441] font-medium'>
-                Cierre: {startTime.getHours().toString().padStart(2, '0')}:{startTime.getMinutes().toString().padStart(2, '0')}
-              </Text>
-              <Text className='text-center text-[#1E3441] font-medium'>
-                Apertura: {endTime.getHours().toString().padStart(2, '0')}:{endTime.getMinutes().toString().padStart(2, '0')}
-              </Text>
+          <View className='flex justify-center items-center w-60 mt-4 gap-8'>
+            <View className='flex flex-row items-center gap-8'>
+              {/* Botón: Elegir rango horario */}
+              <TouchableOpacity 
+                onPress={mostrarSelectorTiempo}
+                className="bg-blue-600 px-4 py-2 rounded-xl"
+              >
+                <Text className="text-white font-semibold text-center text-xl">Elegir rango horario</Text>
+              </TouchableOpacity>
             </View>
-            
-            <Button 
-              title="Guardar Programación" 
-              onPress={guardarConfiguracion}
-              color="#28a745"
-            />
+
+            <View className='flex flex-row items-center gap-10'>
+              <View className='flex gap-2'>
+                {/* Mostrar horas seleccionadas */}
+                <Text className='text-center text-[#1E3441] font-medium text-xl border-b-2 border-[#CDCDCD] pb-2'>
+                  Cierre: {startTime.getHours().toString().padStart(2, '0')}:{startTime.getMinutes().toString().padStart(2, '0')}
+                </Text>
+                <Text className='text-center text-[#1E3441] font-medium text-xl'>
+                  Apertura: {endTime.getHours().toString().padStart(2, '0')}:{endTime.getMinutes().toString().padStart(2, '0')}
+                </Text>
+              </View>
+              <TouchableOpacity 
+                onPress={guardarConfiguracion}
+                className="bg-green-600 p-3 rounded-full"
+              >
+                <CheckIcon size={26} color="#FFFFFF" className='rounde'/>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
         
@@ -280,14 +286,15 @@ export default function Settings() {
               display="spinner"
               onChange={handleTimeChange}
             />
-            <Button 
-              title="Cancelar" 
+            <TouchableOpacity 
               onPress={() => {
-                setPickerVisible(false);
-                setIsSelectingStartTime(true);
+                setPickerVisible(false)
+                setIsSelectingStartTime(true)
               }}
-              color="#dc3545"
-            />
+              className="bg-red-600 px-4 py-2 rounded-xl"
+            >
+              <Text className="text-white font-semibold text-center">Cancelar</Text>
+            </TouchableOpacity>
           </View>
         )}
       </View>

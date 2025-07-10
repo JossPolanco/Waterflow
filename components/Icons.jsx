@@ -64,3 +64,7 @@ export const AlertIcon = ({size = 24, color = 'black'}) => (
 export const TrashIcon = ({size = 24, color = 'black'}) => (
     <Feather name="trash-2" size={size} color={color} />
 );
+
+export const CheckIcon = ({size = 24, color = 'black'}) => (
+    <Entypo name="check" size={size} color={color} />
+);
