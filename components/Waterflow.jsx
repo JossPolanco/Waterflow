@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { TuneSettingsIcon } from "./Icons";
 import { Redirect } from 'expo-router';
 import { useRouter } from "expo-router"
-
+import ApiEndpoint from "../utils/endpointAPI"
 
 export default function Waterflow({mac = '', waterflowName = '', isConnected = false, isOpen = false}) {
+    const endpoint = ApiEndpoint();
     const [waterIsConnected, waterSetIsConnected] = useState(isConnected);
     const [waterIsOpen, setWaterIsOpen] = useState(isOpen)
     const router = useRouter()
@@ -25,7 +26,7 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
     
     async function sendCommand(data) {          
         // send the order to open the waterflow
-        const response = await fetch('https://v4z5d761-3000.usw3.devtunnels.ms/send-command', {
+        const response = await fetch(endpoint + '/waterflow/send-command', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,8 +54,7 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
                 <View className="flex-row items-center justify-between w-full">
                     <View>
                         <Pressable onPress={() => {
-                            console.log('ENTRAR A SETTINGS')
-                            router.replace({pathname: '/tabs/settingsRoute', params: { waterflow_mac: mac }});                
+                            router.replace({pathname: '/services/settingsRoute', params: { waterflow_mac: mac }});                
                         }}>
                             {TuneSettingsIcon(30, 'black')}
                         </Pressable>

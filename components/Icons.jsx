@@ -68,3 +68,7 @@ export const TrashIcon = ({size = 24, color = 'black'}) => (
 export const CheckIcon = ({size = 24, color = 'black'}) => (
     <Entypo name="check" size={size} color={color} />
 );
+
+export const PencilIcon = ({size = 24, color = 'black'}) => (
+    <FontAwesome6 name="pencil" size={size} color={color} />
+);

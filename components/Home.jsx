@@ -2,8 +2,11 @@ import { View, Text, Pressable, Switch } from "react-native"
 import { useLocalSearchParams } from "expo-router";
 import { useState, useEffect } from "react";
 import Waterflow from "./Waterflow";
+import ApiEndpoint from "../utils/endpointAPI"
+
 
 export default function Home(){
+    const endpoint = ApiEndpoint();
     const { user_id } = useLocalSearchParams(); 
     const [ updateFetch, setUpdateFetch ] = useState(false);    
     const [ waterflowDevices, setWaterflowDevices ] = useState([]);
@@ -13,7 +16,7 @@ export default function Home(){
         async function fetchWaterflows() {
             setIsLoading(true); 
             try {
-                const response = await fetch(`https://v4z5d761-3000.usw3.devtunnels.ms/info-waterflow/${user_id}`, {
+                const response = await fetch(`${endpoint}/waterflow/info-waterflow/${user_id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -21,8 +24,7 @@ export default function Home(){
                 });
     
                 const data = await response.json();
-                console.log('Respuesta:', data.waterflows);
-
+                console.log('Respuesta:', data);
                 setWaterflowDevices(data.waterflows);
             } catch (error) {
                 console.log('Error al obtener dispositivos:', error);
@@ -45,26 +47,19 @@ export default function Home(){
             
             {/* Draws each waterflow device of the user */}
             {!isLoading && waterflowDevices.length > 0 && (
-                <View className="w-full">
+                <View className="w-full gap-5">
                     {waterflowDevices.map((device, index) => (
-                        <View key={device.mac + index}>
+                        <View key={index}>
                             <Waterflow 
                                 mac={device.MAC}
-                                waterflowName={'Test' || `Dispositivo ${index + 1}`}
+                                waterflowName={device.name}
                                 isConnected={true}
                                 isOpen={device.active}
                             />
                         </View>
                     ))}
                 </View>
-            )}
-
-            {/* <View>
-                <Text className='text-red-500'>Home screen</Text>
-                <Pressable onPress={() => setUpdateFetch(!updateFetch)}>
-                    <Text className="text-blue-500 font-semibold">Close or open</Text>
-                </Pressable>
-            </View> */}            
+            )}         
         </View>
     );
 }

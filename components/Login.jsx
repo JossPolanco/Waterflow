@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View, Image, TextInput, Button, Alert, Pressable, Link } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from "expo-router"
+import ApiEndpoint from "../utils/endpointAPI"
 
 export default function Login() {
+    const endpoint = ApiEndpoint()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     // hook for the routing
     const router = useRouter();
-
     // validate that all the inputs are filled
     const validateFileds = () => {
         if(!username || !password) {
@@ -21,7 +22,7 @@ export default function Login() {
         if(!validateFileds()) return;
         console.log('Me picaste')
         try {
-            const response = await fetch('https://v4z5d761-3000.usw3.devtunnels.ms/login_service', {
+            const response = await fetch(endpoint + '/login_service', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

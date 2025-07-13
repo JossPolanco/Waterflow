@@ -59,18 +59,6 @@ export default function NavigationLayout() {
           tabBarIcon: ({ color, size }) => NotificationsIcon(size, color),
         }}
       />
-      <Tabs.Screen
-        name="settingsRoute"
-        options={{
-          title: 'Settings',
-          headerRight: () => (
-            <View style={{ marginRight: 16 }}>
-              <CrossIcon size={30} color="white" />
-            </View>
-          ),
-          tabBarIcon: ({ color, size }) => SettingsIcon(size, color),
-        }}
-      />
     </Tabs>
   );
 }

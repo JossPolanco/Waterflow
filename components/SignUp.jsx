@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Image, TextInput, Button, Alert, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from "expo-router"
-
+import ApiEndpoint from "../utils/endpointAPI"
 
 export default function SignUp() {
+    const endpoint = ApiEndpoint();
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -47,7 +48,7 @@ export default function SignUp() {
         }
 
         try {
-            const result = await fetch('https://v4z5d761-3000.usw3.devtunnels.ms/sign_up_service', {
+            const result = await fetch(endpoint + '/sign_up_service', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', 
