@@ -13,28 +13,29 @@ export default function Home(){
     const [ isLoading, setIsLoading ] = useState(false);    
 
     useEffect(() => {
-        async function fetchWaterflows() {
-            setIsLoading(true); 
-            try {
-                const response = await fetch(`${endpoint}/waterflow/info-waterflow/${user_id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },                    
-                });
-    
-                const data = await response.json();
-                console.log('Respuesta:', data);
-                setWaterflowDevices(data.waterflows);
-            } catch (error) {
-                console.log('Error al obtener dispositivos:', error);
-                setWaterflowDevices([]);
-            } finally {
-                setIsLoading(false); 
-            }
-        }
         fetchWaterflows()            
     }, [updateFetch])
+
+    async function fetchWaterflows() {
+        setIsLoading(true); 
+        try {
+            const response = await fetch(`${endpoint}/waterflow/info-waterflow/${user_id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },                    
+            });
+
+            const data = await response.json();
+            console.log('Respuesta:', data);
+            setWaterflowDevices(data.waterflows);
+        } catch (error) {
+            console.log('Error al obtener dispositivos:', error);
+            setWaterflowDevices([]);
+        } finally {
+            setIsLoading(false); 
+        }
+    }
 
     return (
         <View className="justify-center items-center mt-6 px-10 gap-4 bg-gray-100">

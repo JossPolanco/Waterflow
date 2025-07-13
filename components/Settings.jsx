@@ -3,13 +3,63 @@ import { View, Text, Switch, Alert, TouchableOpacity, TextInput, Pressable } fro
 import { TempIcon, TimerIcon, CheckIcon, PencilIcon } from "./Icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import * as TaskManager from "expo-task-manager";
 import { useLocalSearchParams } from "expo-router";
+import ApiEndpoint from "../utils/endpointAPI";
 
 export default function Settings() {
   const { waterflow_mac } = useLocalSearchParams();
-
+  const endpoint = ApiEndpoint();
   const [deviceName, setDeviceName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);    
+  const [wfSettings, setWfSettings] = useState()
+
+  useEffect(() => {
+
+  })
+
+  async function fetchWfSettings() {
+    setIsLoading(true);
+    try {
+      const response = await fetch(endpoint + '/get-configuration', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(waterflow_mac),
+      })
+
+      const result = await response.json()
+
+      if(result.status == 'successfully'){
+        setWfSettings(result.settings)
+      } else {
+        setWfSettings()
+      }
+    } catch (error) {
+      console.log('Error found: ', error)
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function setSettings(settings) {
+    const response = await fetch(endpoint + '/set-configuration', {
+      method: 'POST',
+      headers: {
+        'Contnet-Type': 'application/json'
+      },
+      body: JSON.stringify(settings)
+    })
+
+    const result = await response.json();
+
+    if(result.status == 'successfuly') {
+      Alert.alert("Configuración exitosa", "Configuración guardada correctamente.");
+    } else {
+      Alert.alert("Error", "Ocurrió un error al guardar la configuración.");
+    }
+  }
 
   // generate a range of temperatures dynamically
   const temperatures = [];
@@ -92,17 +142,15 @@ export default function Settings() {
     }
 
     const settings = {
-      waterflow_mac: waterflow_mac,
+      mac_address: waterflow_mac,
       name: deviceName,
       autoClose: autoClose,
       autoCloseTemp: autoCloseTemp,
-      start_time: startTimeInt,
-      end_time: endTimeInt,
+      // start_time: startTimeInt,
+      // end_time: endTimeInt,
     };
 
-    console.log('CONFIGURACION SETEADA: ', settings)
-
-    Alert.alert("Configuración guardada correctamente.");
+    setSettings(settings)
   };
 
   // Mostrar selector de tiempo
@@ -123,13 +171,22 @@ export default function Settings() {
   }, []);
 
   return (
-    <View className="flex-1 items-center gap-4 py-10 px-6 bg-gray-100">
+    <View className="justify-center items-center mt-6 px-6 gap-4 bg-gray-100">
       {/* HEADER */}
       <Text className="font-extrabold text-center text-[38px] text-[#1E3441] mb-5">
         Configuración
       </Text>
 
-      <View className="flex gap-4 pl-2 w-full">
+      {/* shows this while is loading all the devices */}
+      {isLoading && (
+          <View className="mt-5">
+              <Text className="text-gray-500">Cargando dispositivos...</Text>
+          </View>
+      )}
+
+      {!isLoading && (
+        <View className="w-full">
+            <View className="flex gap-4 pl-2 w-full">
         <View className="flex-row gap-3 items-center justify-start">
           <PencilIcon size={30} color="#1E3441" />
           <Text className="text-black font-bold text-xl">Nombre del dispositivo:</Text>
@@ -266,10 +323,14 @@ export default function Settings() {
           </View>
         )}
 
-        <View>
-          {/* Here goes the setup settings button */}
+          <View className="flex-1 bg-cyan-200 w-full items-center">
+            <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 w-32 h-12 active:bg-blue-700" onPress={guardarConfiguracion}>
+                <Text className="text-white text-base font-semibold text-center">Guardar</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
+    )}
     </View>
   );
 }
