@@ -43,20 +43,21 @@ export default function Settings() {
     }
   }
 
-  async function setSettings(settings) {
-    const response = await fetch(endpoint + '/set-configuration', {
-      method: 'POST',
+  async function setSettings(settings) {    
+    const response = await fetch(endpoint + '/waterflow/set-configuration', {
+      method: 'PUT',
       headers: {
-        'Contnet-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(settings)
     })
 
-    const result = await response.json();
+    const result = await response.json();    
 
-    if(result.status == 'successfuly') {
+    if(result.status == 'successfuly') {      
       Alert.alert("Configuración exitosa", "Configuración guardada correctamente.");
     } else {
+      console.log(result.message)
       Alert.alert("Error", "Ocurrió un error al guardar la configuración.");
     }
   }
@@ -123,6 +124,7 @@ export default function Settings() {
 
   // Guardar configuración
   const guardarConfiguracion = () => {
+    console.log('GUARDASTE')
     const formatTimeInt = (time) => {
       const hours = time.getHours().toString().padStart(2, "0");
       const minutes = time.getMinutes().toString().padStart(2, "0");
@@ -145,9 +147,7 @@ export default function Settings() {
       mac_address: waterflow_mac,
       name: deviceName,
       autoClose: autoClose,
-      autoCloseTemp: autoCloseTemp,
-      // start_time: startTimeInt,
-      // end_time: endTimeInt,
+      autoCloseTemp: autoCloseTemp
     };
 
     setSettings(settings)
