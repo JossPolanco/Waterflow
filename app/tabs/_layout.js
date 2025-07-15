@@ -36,7 +36,7 @@ export default function NavigationLayout() {
       <Tabs.Screen
         name="homeRoute"
         options={{
-          title: 'Home',
+          title: 'Hogar',
           tabBarIcon: ({ color, size }) => HomeIcon(size, color),
         }}
       />
@@ -50,7 +50,7 @@ export default function NavigationLayout() {
       <Tabs.Screen
         name="notificationsRoute"
         options={{
-          title: 'Notifications',
+          title: 'Notificaciones',
           headerRight: () => (
             <View style={{ marginRight: 16 }}>
               <CrossIcon size={30} color="white" />

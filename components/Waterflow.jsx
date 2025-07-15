@@ -54,7 +54,7 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
                 <View className="flex-row items-center justify-between w-full">
                     <View>
                         <Pressable onPress={() => {
-                            router.replace({pathname: '/services/settingsRoute', params: { waterflow_mac: mac }});                
+                            router.push({pathname: '/services/settingsRoute', params: { waterflow_mac: mac }});                
                         }}>
                             {TuneSettingsIcon(30, 'black')}
                         </Pressable>

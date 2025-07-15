@@ -5,41 +5,62 @@ import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useLocalSearchParams } from "expo-router";
 import ApiEndpoint from "../utils/endpointAPI";
+import { useRouter } from "expo-router"
 
 export default function Settings() {
-  const { waterflow_mac } = useLocalSearchParams();
   const endpoint = ApiEndpoint();
+  const { waterflow_mac } = useLocalSearchParams();
   const [deviceName, setDeviceName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);    
+  const [isLoading, setIsLoading] = useState(true);    
   const [wfSettings, setWfSettings] = useState()
+  const [saveBtnDisabled, setSaveBtnDisabled] = useState(false);  
 
   useEffect(() => {
+    fetchWfSettings()    
+  }, [])
 
-  })
+  useEffect(() => {
+  if (wfSettings !== undefined) {   
+    console.log('LA CONFIGURACION QUE DEBERIA SER: ', wfSettings)
+    setValues(wfSettings.autoClose, wfSettings.autoCloseTemp, wfSettings.name)
+  }
+}, [wfSettings]);
+
+  function setValues(autoClose, autoCloseTemp, name){
+      setTempEnabled(autoClose);
+      setTempValue(autoCloseTemp.toString());
+      setDeviceName(name);      
+  }
 
   async function fetchWfSettings() {
     setIsLoading(true);
+
+    let data = {
+      "mac_address": waterflow_mac
+    }
+
+    console.log('DATA: ', data)
     try {
-      const response = await fetch(endpoint + '/get-configuration', {
+      const response = await fetch(endpoint + `/waterflow/get-configuration?mac_address=${waterflow_mac}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(waterflow_mac),
+        },        
       })
 
       const result = await response.json()
 
-      if(result.status == 'successfully'){
-        setWfSettings(result.settings)
-      } else {
-        setWfSettings()
-      }
+      console.log('SETTINGS: ', result)
+
+      if(result.status == 'successfuly'){
+        setWfSettings(result.results)
+        // setValues()        
+      }  
     } catch (error) {
       console.log('Error found: ', error)
     }
     finally {
-      setIsLoading(false);
+      setIsLoading(false);      
     }
   }
 
@@ -56,9 +77,11 @@ export default function Settings() {
 
     if(result.status == 'successfuly') {      
       Alert.alert("Configuración exitosa", "Configuración guardada correctamente.");
+      setSaveBtnDisabled(false);
     } else {
       console.log(result.message)
       Alert.alert("Error", "Ocurrió un error al guardar la configuración.");
+      setSaveBtnDisabled(false);
     }
   }
 
@@ -70,7 +93,7 @@ export default function Settings() {
 
   // DROPDOWN TEMPERATURE
   const [open, setOpen] = useState(false);
-  const [tempValue, setTempValue] = useState(null);
+  const [tempValue, setTempValue] = useState();
   const [items, setItems] = useState(temperatures);
 
   let autoClose = false;
@@ -88,7 +111,7 @@ export default function Settings() {
   };
 
   // Switch for the temperature setting
-  const [isTempEnabled, setTempEnabled] = useState(true);
+  const [isTempEnabled, setTempEnabled] = useState(false);
   const toggleTempSwitch = () => {
       setTempEnabled(!isTempEnabled);
   }
@@ -124,6 +147,7 @@ export default function Settings() {
 
   // Guardar configuración
   const guardarConfiguracion = () => {
+    setSaveBtnDisabled(true)
     console.log('GUARDASTE')
     const formatTimeInt = (time) => {
       const hours = time.getHours().toString().padStart(2, "0");
@@ -172,11 +196,6 @@ export default function Settings() {
 
   return (
     <View className="justify-center items-center mt-6 px-6 gap-4 bg-gray-100">
-      {/* HEADER */}
-      <Text className="font-extrabold text-center text-[38px] text-[#1E3441] mb-5">
-        Configuración
-      </Text>
-
       {/* shows this while is loading all the devices */}
       {isLoading && (
           <View className="mt-5">
@@ -191,7 +210,7 @@ export default function Settings() {
           <PencilIcon size={30} color="#1E3441" />
           <Text className="text-black font-bold text-xl">Nombre del dispositivo:</Text>
         </View>
-          <TextInput className="bg-gray-200 border-gray-300 border-2 rounded-full px-4 h-14 w-full" placeholder='Nombre del dispositivo' onChangeText={setDeviceName} />
+          <TextInput className="bg-gray-200 border-gray-300 border-2 rounded-full px-4 h-14 w-full" placeholder='Nombre del dispositivo' onChangeText={setDeviceName} value={deviceName} />
       </View>
 
         {/* auto close temperature */}
@@ -240,8 +259,7 @@ export default function Settings() {
             />
           </View>
           )}
-        
-        {/* HORARIO */}
+    
       <View className="flex gap-4 w-full items-center">
         <View className="flex-row justify-center items-center gap-3">
           <TimerIcon size={35} color="#1E3441" />
@@ -258,11 +276,9 @@ export default function Settings() {
           />
         </View>
 
-        {/* Mostrar configuración solo si el timer está activado */}
         {isTimerEnabled && (
           <View className="flex justify-center items-center w-60 mt-4 gap-8">
-            <View className="flex flex-row items-center gap-8">
-              {/* Botón: Elegir rango horario */}
+            <View className="flex flex-row items-center gap-8">              
               <TouchableOpacity
                 onPress={mostrarSelectorTiempo}
                 className="bg-blue-600 px-4 py-2 rounded-xl"
@@ -274,8 +290,7 @@ export default function Settings() {
             </View>
 
             <View className="flex flex-row items-center gap-10">
-              <View className="flex gap-2">
-                {/* Mostrar horas seleccionadas */}
+              <View className="flex gap-2">                
                 <Text className="text-center text-[#1E3441] font-medium text-xl border-b-2 border-[#CDCDCD] pb-2">
                   Cierre: {startTime.getHours().toString().padStart(2, "0")}:
                   {startTime.getMinutes().toString().padStart(2, "0")}
@@ -294,8 +309,7 @@ export default function Settings() {
             </View>
           </View>
         )}
-
-        {/* DateTimePicker - Solo se muestra cuando pickerVisible es true */}
+        
         {pickerVisible && (
           <View className="flex gap-4 items-center">
             <Text className="text-[#1E3441] font-bold text-lg">
@@ -323,11 +337,21 @@ export default function Settings() {
           </View>
         )}
 
-          <View className="flex-1 bg-cyan-200 w-full items-center">
-            <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 w-32 h-12 active:bg-blue-700" onPress={guardarConfiguracion}>
+        {saveBtnDisabled && (
+          <View className="flex-1 w-full items-center">
+            <Pressable disabled={true} className="bg-blue-700 rounded-2xl py-4 items-center mt-2 w-32 h-12">
                 <Text className="text-white text-base font-semibold text-center">Guardar</Text>
             </Pressable>
           </View>
+        )}
+
+        {!saveBtnDisabled && (
+          <View className="flex-1 w-full items-center">
+            <Pressable disabled={false} className="bg-blue-500 rounded-2xl py-4 items-center mt-2 w-32 h-12 active:bg-blue-700" onPress={guardarConfiguracion}>
+                <Text className="text-white text-base font-semibold text-center">Guardar</Text>
+            </Pressable>
+          </View>
+        )}
         </View>
       </View>
     )}
