@@ -29,6 +29,10 @@ export const NotificationsIcon = (size, color = 'black') => (
     <Ionicons name="notifications" size={size} color={color} />
 );
 
+export const LockIcon = (size, color = 'black') => (
+    <Ionicons name="lock-closed" size={size} color={color} />
+)
+
 export const UserIcon = (size, color = 'black') => (
     <EvilIcons name="user" size={size} color={color} />
 );
@@ -47,6 +51,10 @@ export const TimerIcon = ({size = 24, color = 'black'}) => (
 
 export const ClockIcon = ({size = 24, color = 'black'}) => (
     <MaterialCommunityIcons name="timer-sand-empty" size={size} color={color}/>
+);
+
+export const WaterIcon = ({size = 24, color = 'black'}) => (
+    <MaterialCommunityIcons name="water-check-outline" size={size} color={color} />
 );
 
 export const TuneSettingsIcon = ({size = 24, color = 'black'}) => (
@@ -71,4 +79,16 @@ export const CheckIcon = ({size = 24, color = 'black'}) => (
 
 export const PencilIcon = ({size = 24, color = 'black'}) => (
     <FontAwesome6 name="pencil" size={size} color={color} />
+);
+
+export const LowTemperatureIcon = ({size = 24, color = 'black'}) => (
+    <FontAwesome6 name="temperature-low" size={size} color={color} />
+);
+
+export const MidTemperatureIcon = ({size = 24, color = 'black'}) => (
+    <FontAwesome6 name="temperature-three-quarters" size={size} color={color} />
+);
+
+export const HighTemperatureIcon = ({size = 24, color = 'black'}) => (
+    <FontAwesome6 name="temperature-high" size={size} color={color} />
 );

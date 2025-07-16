@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Switch } from "react-native"
+import { View, Text, Pressable, Switch, ScrollView} from "react-native"
 import { useLocalSearchParams } from "expo-router";
 import React, { useState, useEffect } from "react";
 import Waterflow from "./Waterflow";
@@ -40,10 +40,13 @@ export default function Home(){
     }
 
     return (
-        <View className="justify-center items-center mt-6 px-10 gap-4 bg-gray-100">
+        <ScrollView 
+            className="flex-1 bg-gray-100 pt-10 px-8"
+            showsVerticalScrollIndicator={false}
+        >
             {/* shows this while is loading all the devices */}
             {isLoading && (
-                <View className="mt-5">
+                <View className="mt-5 items-center">
                     <Text className="text-gray-500">Cargando dispositivos...</Text>
                 </View>
             )}
@@ -58,11 +61,12 @@ export default function Home(){
                                 waterflowName={device.name}
                                 isConnected={device.active}
                                 isOpen={device.active}
+                                temp={device.currentTemp}
                             />
                         </View>
                     ))}
                 </View>
             )}         
-        </View>
+        </ScrollView>
     );
 }
