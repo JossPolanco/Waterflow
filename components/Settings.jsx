@@ -3,7 +3,7 @@ import { View, Text, Switch, Alert, TouchableOpacity, TextInput, Pressable } fro
 import { TempIcon, TimerIcon, CheckIcon, PencilIcon } from "./Icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import ApiEndpoint from "../utils/endpointAPI";
 import { useRouter } from "expo-router"
 
@@ -78,6 +78,7 @@ export default function Settings() {
     if(result.status == 'successfuly') {      
       Alert.alert("Configuración exitosa", "Configuración guardada correctamente.");
       setSaveBtnDisabled(false);
+      router.back()
     } else {
       console.log(result.message)
       Alert.alert("Error", "Ocurrió un error al guardar la configuración.");

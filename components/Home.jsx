@@ -1,20 +1,22 @@
 import { View, Text, Pressable, Switch } from "react-native"
 import { useLocalSearchParams } from "expo-router";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Waterflow from "./Waterflow";
 import ApiEndpoint from "../utils/endpointAPI"
+import { useFocusEffect } from '@react-navigation/native';
 
 
 export default function Home(){
     const endpoint = ApiEndpoint();
-    const { user_id } = useLocalSearchParams(); 
-    const [ updateFetch, setUpdateFetch ] = useState(false);    
+    const { user_id } = useLocalSearchParams();     
     const [ waterflowDevices, setWaterflowDevices ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(false);    
 
-    useEffect(() => {
-        fetchWaterflows()            
-    }, [updateFetch])
+    useFocusEffect(
+        React.useCallback(() => {
+            fetchWaterflows();
+        }, [])
+    );
 
     async function fetchWaterflows() {
         setIsLoading(true); 
@@ -54,7 +56,7 @@ export default function Home(){
                             <Waterflow 
                                 mac={device.MAC}
                                 waterflowName={device.name}
-                                isConnected={true}
+                                isConnected={device.active}
                                 isOpen={device.active}
                             />
                         </View>
