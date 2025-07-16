@@ -1,6 +1,6 @@
 import { View, Pressable, Switch, Text } from "react-native"
 import { useEffect, useState } from "react";
-import { TuneSettingsIcon } from "./Icons";
+import { TuneSettingsIcon, DashboardIcon } from "./Icons";
 import { Redirect } from 'expo-router';
 import { useRouter } from "expo-router"
 import ApiEndpoint from "../utils/endpointAPI"
@@ -75,9 +75,18 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
                 <View className="bg-gray-100 flex-1 justify-center items-center">
                     <Text>Here goes something</Text>
                 </View>
-                <View className="text-center items-center">
-                    <Text className="text-1xl text-gray-400 font-bold">Estado de la llave:</Text>
-                    <Text className="text-2xl text-black font-bold">{waterIsOpen ? 'Abierto': 'Cerrado'}</Text>
+                <View className="flex flex-row justify-between text-center w-full items-center">
+                    <View className="justify-center items-center flex flex-row gap-2">
+                        <Text className="text-2xl text-black font-bold">Estado:</Text>
+                        <Text className="text-1xl text-center items-center text-gray-400 font-bold">{waterIsOpen ? 'Abierto': 'Cerrado'}</Text>
+                    </View>
+                    <View className="justify-end">
+                        <Pressable onPress={() => {
+                            router.push({pathname: '/services/dashboardRoute', params: { waterflow_mac: mac }});                
+                        }}>
+                            {DashboardIcon(30, 'black')}
+                        </Pressable>
+                    </View>
                 </View>
             </View>
         </View>

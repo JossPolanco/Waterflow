@@ -19,8 +19,7 @@ export default function ServicesLayout() {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                     fontSize: 27,
-                },
-                title: 'Configuración'
+                },                
             }}
         />
     )
