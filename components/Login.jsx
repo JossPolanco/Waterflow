@@ -34,7 +34,6 @@ export default function Login() {
             });
 
             const data = await response.json();
-            console.log(data)
 
             if (response.ok) {
                 router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.user.id }});                

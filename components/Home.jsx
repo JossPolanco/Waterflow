@@ -29,7 +29,6 @@ export default function Home(){
             });
 
             const data = await response.json();
-            console.log('Respuesta:', data);
             setWaterflowDevices(data.waterflows);
         } catch (error) {
             console.log('Error al obtener dispositivos:', error);

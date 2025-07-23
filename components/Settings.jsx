@@ -50,8 +50,6 @@ export default function Settings() {
 
       const result = await response.json()
 
-      console.log('SETTINGS: ', result)
-
       if(result.status == 'successfuly'){
         setWfSettings(result.results)
         // setValues()        

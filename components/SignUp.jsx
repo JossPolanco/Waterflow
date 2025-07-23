@@ -57,7 +57,6 @@ export default function SignUp() {
             });
 
             const response = await result.json();
-            console.log(response)
 
             if (response.status == 'success') {
                 Alert.alert('Éxito', `Bienvenido,`);
