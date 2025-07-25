@@ -1,6 +1,6 @@
-import { View, Text, Pressable, Switch, ScrollView} from "react-native"
+import { View, Text, ScrollView} from "react-native"
 import { useLocalSearchParams } from "expo-router";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Waterflow from "./Waterflow";
 import ApiEndpoint from "../utils/endpointAPI"
 import { useFocusEffect } from '@react-navigation/native';
