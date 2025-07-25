@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert, Pressable, Link } from 'react-native';
-import React, { useState } from 'react';
+import { Text, View, Image, TextInput, Alert, Pressable } from 'react-native';
+import { useState } from 'react';
 import { useRouter } from "expo-router"
 import ApiEndpoint from "../utils/endpointAPI"
 
@@ -20,7 +20,7 @@ export default function Login() {
 
     const handleLogin = async () => {
         if(!validateFileds()) return;
-        console.log('Me picaste')
+        
         try {
             const response = await fetch(endpoint + '/login_service', {
                 method: 'POST',
@@ -34,7 +34,6 @@ export default function Login() {
             });
 
             const data = await response.json();
-            console.log(data)
 
             if (response.ok) {
                 router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.user.id }});                

@@ -1,4 +1,4 @@
 export default function ApiEndpoint(){
-    let endpoint = new String('https://gpmknnnz-3000.usw3.devtunnels.ms/')
+    let endpoint = new String('https://cleanlyfe-production.up.railway.app/')
     return endpoint.toString()
 }

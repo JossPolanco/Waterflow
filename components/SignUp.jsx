@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import { Text, View, Image, TextInput, Alert, Pressable } from 'react-native';
+import { useState } from 'react';
 import { useRouter } from "expo-router"
 import ApiEndpoint from "../utils/endpointAPI"
 
@@ -57,7 +57,6 @@ export default function SignUp() {
             });
 
             const response = await result.json();
-            console.log(response)
 
             if (response.status == 'success') {
                 Alert.alert('Éxito', `Bienvenido,`);

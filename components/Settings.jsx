@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, Switch, Alert, TouchableOpacity, TextInput, Pressable } from "react-native";
 import { TempIcon, TimerIcon, CheckIcon, PencilIcon } from "./Icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import ApiEndpoint from "../utils/endpointAPI";
-import { useRouter } from "expo-router"
 
 export default function Settings() {
   const endpoint = ApiEndpoint();
@@ -49,8 +48,6 @@ export default function Settings() {
       })
 
       const result = await response.json()
-
-      console.log('SETTINGS: ', result)
 
       if(result.status == 'successfuly'){
         setWfSettings(result.results)
