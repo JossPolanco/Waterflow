@@ -23,7 +23,7 @@ export default function NavigationLayout() {
       <Tabs.Screen
         name="homeRoute"
         options={{
-          title: 'Hogar',
+          title: 'Inicio',
           tabBarIcon: ({ color, size }) => HomeIcon(size, color),
         }}
       />      
