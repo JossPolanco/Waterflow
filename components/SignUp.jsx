@@ -2,6 +2,7 @@ import { Text, View, Image, TextInput, Alert, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from "expo-router"
 import ApiEndpoint from "../utils/endpointAPI"
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function SignUp() {
     const endpoint = ApiEndpoint();
@@ -11,6 +12,7 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
+    const insets = useSafeAreaInsets();
 
     // hook for the routing
     const router = useRouter()
@@ -70,7 +72,7 @@ export default function SignUp() {
         }
     }
     return (
-        <View className="flex-1 justify-center bg-blue-200 gap-5">
+        <View className="flex-1 justify-center bg-blue-200 gap-5" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
             <View className="justify-center items-center pt-10 gap-2">
                 <Image className="size-32" source={require('../assets/logo_without_bg.png')} />
                 <Text className="text-3xl text-white font-bold">Get Started</Text>

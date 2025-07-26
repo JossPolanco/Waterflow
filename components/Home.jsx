@@ -1,16 +1,20 @@
-import { View, Text, ScrollView} from "react-native"
+import { View, Text, ScrollView, ActivityIndicator} from "react-native"
 import { useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import Waterflow from "./Waterflow";
 import ApiEndpoint from "../utils/endpointAPI"
 import { useFocusEffect } from '@react-navigation/native';
-
+import { RefreshControl } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Home(){
     const endpoint = ApiEndpoint();
     const { user_id } = useLocalSearchParams();     
-    const [ waterflowDevices, setWaterflowDevices ] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(false);    
+    const [ waterflowDevices, setWaterflowDevices ] = useState([]);        
+    const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
+    const [error, setError] = useState(null);
+    const insets = useSafeAreaInsets();
 
     useFocusEffect(
         React.useCallback(() => {
@@ -18,8 +22,15 @@ export default function Home(){
         }, [])
     );
 
-    async function fetchWaterflows() {
-        setIsLoading(true); 
+    const onRefresh = async () => {
+        setRefreshing(true);
+        await fetchWaterflows();
+        setRefreshing(false);
+    }
+
+    async function fetchWaterflows() {    
+        setLoading(true);
+        setError(null);    
         try {
             const response = await fetch(`${endpoint}/waterflow/info-waterflow/${user_id}`, {
                 method: 'POST',
@@ -32,26 +43,44 @@ export default function Home(){
             setWaterflowDevices(data.waterflows);
         } catch (error) {
             console.log('Error al obtener dispositivos:', error);
-            setWaterflowDevices([]);
+            setError('Error al cargar los datos')
         } finally {
-            setIsLoading(false); 
+            setLoading(false);
         }
     }
 
-    return (
-        <ScrollView 
-            className="flex-1 bg-gray-100 pt-10 px-8"
-            showsVerticalScrollIndicator={false}
-        >
-            {/* shows this while is loading all the devices */}
-            {isLoading && (
-                <View className="mt-5 items-center">
-                    <Text className="text-gray-500">Cargando dispositivos...</Text>
+    if (loading) {
+            return (
+                <View className="flex-1 justify-center items-center bg-gray-50">
+                    <ActivityIndicator size="large" color="#3B82F6" />
+                    <Text className="mt-4 text-gray-600 text-lg">Cargando inicio...</Text>
                 </View>
-            )}
+            );
+        }
+    
+    if(error){
+        return (
+            <View className="flex-1 justify-center items-center">
+                <View className="mx-4 bg-red-100 border border-red-400 rounded-lg p-4">
+                    <Text className="text-red-700">{error}</Text>
+                </View>
+            </View>
+        )
+    }
+
+    return (        
+        <ScrollView 
+            className="flex-1 bg-gray-50 "
+            contentContainerStyle={{ 
+                padding: 32                
+            }}         
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+        >
             
-            {/* Draws each waterflow device of the user */}
-            {!isLoading && waterflowDevices.length > 0 && (
+            {!loading && waterflowDevices.length > 0 && (
                 <View className="w-full gap-5">
                     {waterflowDevices.map((device, index) => (
                         <View key={index}>
@@ -66,6 +95,6 @@ export default function Home(){
                     ))}
                 </View>
             )}         
-        </ScrollView>
+        </ScrollView>        
     );
 }

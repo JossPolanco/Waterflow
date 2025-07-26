@@ -8,13 +8,14 @@ import Entypo from '@expo/vector-icons/Entypo';
 import Foundation from '@expo/vector-icons/Foundation';
 import Feather from '@expo/vector-icons/Feather';
 import { colorScheme } from 'nativewind';
+import { Image } from 'react-native';
 
 export const LogoIcon = (size) => (
     <Image name="waterflow_logo" size={size} source={require('../assets/splash-icon.png')} />
 );
 
 export const HomeIcon = (size, color = 'black') => (
-    <FontAwesome name="home" size={size} color={color} />
+    <FontAwesome name="home" size={size} color="black" />
 );
 
 export const DashboardIcon = (size, color = 'black') => (
@@ -26,7 +27,7 @@ export const SettingsIcon = (size, color = 'black') => (
 );
 
 export const NotificationsIcon = (size, color = 'black') => (
-    <Ionicons name="notifications" size={size} color={color} />
+    <Ionicons name="notifications" size={size} color="black" />
 );
 
 export const LockIcon = (size, color = 'black') => (
@@ -42,7 +43,7 @@ export const TempIcon = ({size = 24, color = 'black'}) => (
 );
 
 export const LogoUser = ({size = 24, color = 'black'}) => (
-    <FontAwesome name="user-circle" size={size} color={color}/>
+    <Image className="size-1" source={require('../assets/logo_without_bg.png')} />
 );
 
 export const TimerIcon = ({size = 24, color = 'black'}) => (

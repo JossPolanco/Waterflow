@@ -5,6 +5,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import ApiEndpoint from "../utils/endpointAPI";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Settings() {
   const endpoint = ApiEndpoint();
@@ -13,6 +14,7 @@ export default function Settings() {
   const [isLoading, setIsLoading] = useState(true);    
   const [wfSettings, setWfSettings] = useState()
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(false);  
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     fetchWfSettings()    
@@ -193,7 +195,7 @@ export default function Settings() {
   }, []);
 
   return (
-    <View className="justify-center items-center mt-6 px-6 gap-4 bg-gray-100">
+    <View className="justify-center items-center mt-6 px-6 gap-4 bg-gray-100" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
       {/* shows this while is loading all the devices */}
       {isLoading && (
           <View className="mt-5">

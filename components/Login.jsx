@@ -2,11 +2,13 @@ import { Text, View, Image, TextInput, Alert, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from "expo-router"
 import ApiEndpoint from "../utils/endpointAPI"
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Login() {
     const endpoint = ApiEndpoint()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const insets = useSafeAreaInsets();
     // hook for the routing
     const router = useRouter();
     // validate that all the inputs are filled
@@ -48,7 +50,7 @@ export default function Login() {
     }
 
     return (
-        <View className="flex-1 justify-center gap-10 bg-blue-200">
+        <View className="flex-1 justify-center gap-10 bg-blue-200" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
             <View className="w-full px-10 justify-center items-center pt-10">
                 <View className="justify-center items-center gap-5">
                     <View>
