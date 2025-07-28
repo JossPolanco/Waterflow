@@ -195,7 +195,7 @@ export default function Settings() {
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
 
-      <View className="justify-center items-center mt-6 px-6 gap-4 bg-gray-100" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+      <View className="justify-center items-center px-6 gap-4 bg-gray-100" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
         {/* shows this while is loading all the devices */}
         {isLoading && (
             <View className="mt-5">
@@ -214,7 +214,7 @@ export default function Settings() {
         </View>
 
           {/* auto close temperature */}
-          <View className="flex-row justify-start items-center gap-3">
+          <View className="flex-row justify-start items-center gap-4 mt-3">
               <TempIcon size={35} color="#1E3441" />
               <Text className="font-bold text-xl text-[#1E3441]">
                 Cierre automático por temperatura:
@@ -260,7 +260,7 @@ export default function Settings() {
             </View>
             )}
       
-        <View className="flex gap-4 w-full items-center">
+        {/* <View className="flex gap-4 w-full items-center">
           <View className="flex-row justify-center items-center gap-3">
             <TimerIcon size={35} color="#1E3441" />
             <Text className="font-bold text-[23px] text-[#1E3441]">
@@ -335,10 +335,10 @@ export default function Settings() {
                 </Text>
               </TouchableOpacity>
             </View>
-          )}
+          )} */}
 
           {saveBtnDisabled && (
-            <View className="flex-1 w-full items-center">
+            <View className="flex-1 w-full items-center mt-4">
               <Pressable disabled={true} className="bg-blue-700 rounded-2xl py-4 items-center mt-2 w-32 h-12">
                   <Text className="text-white text-base font-semibold text-center">Guardar</Text>
               </Pressable>
@@ -346,14 +346,13 @@ export default function Settings() {
           )}
 
           {!saveBtnDisabled && (
-            <View className="flex-1 w-full items-center">
+            <View className="flex-1 w-full items-center mt-4">
               <Pressable disabled={false} className="bg-blue-500 rounded-2xl py-4 items-center mt-2 w-32 h-12 active:bg-blue-700" onPress={guardarConfiguracion}>
                   <Text className="text-white text-base font-semibold text-center">Guardar</Text>
               </Pressable>
             </View>
           )}
           </View>
-        </View>
       )}
       </View>
     </TouchableWithoutFeedback>
