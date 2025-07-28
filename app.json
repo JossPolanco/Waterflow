@@ -4,7 +4,8 @@
     "slug": "Waterflow",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "scheme": "waterflow",
+    "icon": "./assets/waterflow_icon.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -17,13 +18,16 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/waterflow_icon.jpg",
+        "backgroundColor": "#f3f5f0"
       },
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/waterflow_icon.jpg"
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
