@@ -1,20 +1,18 @@
 import { View, Text, ScrollView, ActivityIndicator} from "react-native"
-import { useLocalSearchParams } from "expo-router";
+import { RefreshControl } from "react-native-gesture-handler";
+import { useFocusEffect } from '@react-navigation/native';
+import ApiEndpoint from "../utils/endpointAPI"
+import { useUser } from "../hooks/context";
 import React, { useState } from "react";
 import Waterflow from "./Waterflow";
-import ApiEndpoint from "../utils/endpointAPI"
-import { useFocusEffect } from '@react-navigation/native';
-import { RefreshControl } from "react-native-gesture-handler";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Home(){
-    const endpoint = ApiEndpoint();
-    const { user_id } = useLocalSearchParams();     
+    const endpoint = ApiEndpoint();    
+    const { userId } = useUser();
     const [ waterflowDevices, setWaterflowDevices ] = useState([]);        
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-    const [error, setError] = useState(null);
-    const insets = useSafeAreaInsets();
+    const [error, setError] = useState(null);    
 
     useFocusEffect(
         React.useCallback(() => {
@@ -28,11 +26,11 @@ export default function Home(){
         setRefreshing(false);
     }
 
-    async function fetchWaterflows() {    
+    async function fetchWaterflows() {
         setLoading(true);
         setError(null);    
         try {
-            const response = await fetch(`${endpoint}/waterflow/info-waterflow/${user_id}`, {
+            const response = await fetch(`${endpoint}/waterflow/info-waterflow/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -50,13 +48,13 @@ export default function Home(){
     }
 
     if (loading) {
-            return (
-                <View className="flex-1 justify-center items-center bg-gray-50">
-                    <ActivityIndicator size="large" color="#3B82F6" />
-                    <Text className="mt-4 text-gray-600 text-lg">Cargando inicio...</Text>
-                </View>
-            );
-        }
+        return (
+            <View className="flex-1 justify-center items-center bg-gray-50">
+                <ActivityIndicator size="large" color="#3B82F6" />
+                <Text className="mt-4 text-gray-600 text-lg">Cargando inicio...</Text>
+            </View>
+        );
+    }
     
     if(error){
         return (

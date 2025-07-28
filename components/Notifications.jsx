@@ -1,22 +1,21 @@
+import { RefreshControl, ScrollView } from "react-native-gesture-handler";
 import { View, Text, ActivityIndicator } from "react-native";
 import ApiEndpoint from "../utils/endpointAPI";
 import { useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
-import { RefreshControl, ScrollView } from "react-native-gesture-handler";
+import { useUser } from "../hooks/context";
 
 
 export default function Notifications() {
-    const { notifications, setNotifications } = useState();
-    const { refreshing, setRefreshing } = useState(false);
+    const [ notifications, setNotifications ] = useState();
+    const [ refreshing, setRefreshing ] = useState(false);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
-    const { user_id } = useLocalSearchParams();
     const endpoint = ApiEndpoint();
+    const { userId } = useUser();
 
     useEffect(() => {
-        fetchNotifications();
-        console.log('id del usuario: ', user_id)
-    })
+        fetchNotifications();        
+    },[])
 
     const onRefresh = async () => {
         setRefreshing(true);
@@ -24,12 +23,11 @@ export default function Notifications() {
         setRefreshing(false);
     }
 
-    async function fetchNotifications() {
-        console.log('entro al fetch')
+    async function fetchNotifications() {        
         setLoading(true);
         setError(null); 
         try {
-            const response = await fetch(endpoint + `/waterflow/get-notifications?user_id=${user_id}`, {
+            const response = await fetch(endpoint + `/waterflow/get-notifications?user_id=${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -90,7 +88,7 @@ export default function Notifications() {
         refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-            <Text>Coconitos</Text>
+            <Text>Tonotos</Text>
         </ScrollView>
     );
 }
