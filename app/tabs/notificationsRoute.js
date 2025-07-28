@@ -1,5 +1,5 @@
-import Alerts from "../../components/Alerts"
+import Notifications from "../../components/Notifications"
 
 export default function NotificationsRoute(){
-    return <Alerts/>
+    return <Notifications/>
 }
