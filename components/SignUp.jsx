@@ -1,8 +1,8 @@
-import { Text, View, Image, TextInput, Alert, Pressable } from 'react-native';
-import { useState } from 'react';
-import { useRouter } from "expo-router"
-import ApiEndpoint from "../utils/endpointAPI"
+import { Text, View, Image, TextInput, Alert, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ApiEndpoint from "../utils/endpointAPI"
+import { useRouter } from "expo-router"
+import { useState } from 'react';
 
 export default function SignUp() {
     const endpoint = ApiEndpoint();
@@ -23,7 +23,7 @@ export default function SignUp() {
             Alert.alert('Error', 'Todos los campos son obligatorios');
             return false;
         }
-        
+
         if (password.length < 4) {
             Alert.alert('Error', 'La contraseña debe ser minimo de 4 caracteres')
             return false;
@@ -38,7 +38,7 @@ export default function SignUp() {
 
     const handleSignUp = async () => {
         // if the fields have an error, return
-        if(!validateFields()) return;
+        if (!validateFields()) return;
 
         let data = {
             'firstname': firstname.trim(),
@@ -53,7 +53,7 @@ export default function SignUp() {
             const result = await fetch(endpoint + '/sign_up_service', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', 
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
             });
@@ -71,33 +71,40 @@ export default function SignUp() {
             console.error(error);
         }
     }
+
+    const dismissKeyboard = () => {
+        Keyboard.dismiss();
+    };
+
     return (
-        <View className="flex-1 justify-center bg-blue-200 gap-5" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
-            <View className="justify-center items-center pt-10 gap-2">
-                <Image className="size-32" source={require('../assets/logo_without_bg.png')} />
-                <Text className="text-3xl text-white font-bold">Get Started</Text>
-            </View>
-            <View className="bg-gray-100 flex-1 rounded-t-[60] px-10 gap-5">
-                <View className="flex-row justify-start pt-6">                    
-                    <Pressable onPress={() => router.back()}>
-                        <Text className="text-blue-300 font-semibold">← Back to login</Text>
-                    </Pressable>
+        <TouchableWithoutFeedback onPress={dismissKeyboard}>
+            <View className="flex-1 justify-center bg-blue-200 gap-5" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+                <View className="justify-center items-center pt-10 gap-2">
+                    <Image className="size-32" source={require('../assets/logo_without_bg.png')} />
+                    <Text className="text-3xl text-white font-bold">Get Started</Text>
                 </View>
-                <View className="gap-3">
-                    <Text className="text-blue-200 text-4xl font-bold">Sign Up</Text>
-                    <View className="gap-5">
-                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Firstname' onChangeText={setFirstname} />
-                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Lastname' onChangeText={setLastname} />
-                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Username' onChangeText={setUsername} />
-                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Email' onChangeText={setEmail} />
-                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Password' onChangeText={setPassword} />
-                        <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Confirm password' onChangeText={setConfirmPassword} />
-                        <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 active:bg-blue-700" onPress={handleSignUp}>
-                            <Text className="text-white text-base font-semibold text-center">Login</Text>
+                <View className="bg-gray-100 flex-1 rounded-t-[60] px-10 gap-5">
+                    <View className="flex-row justify-start pt-6">
+                        <Pressable onPress={() => router.back()}>
+                            <Text className="text-blue-300 font-semibold">← Back to login</Text>
                         </Pressable>
+                    </View>
+                    <View className="gap-3">
+                        <Text className="text-blue-200 text-4xl font-bold">Sign Up</Text>
+                        <View className="gap-5">
+                            <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Firstname' onChangeText={setFirstname} returnKeyType="next" autoCorrect={false} />
+                            <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Lastname' onChangeText={setLastname} returnKeyType="next" autoCorrect={false} />
+                            <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Username' onChangeText={setUsername} returnKeyType="next" autoCorrect={false} />
+                            <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Email' onChangeText={setEmail} returnKeyType="next" autoCorrect={false} />
+                            <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Password' onChangeText={setPassword} returnKeyType="next" secureTextEntry={true} autoCorrect={false} />
+                            <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Confirm password' onChangeText={setConfirmPassword} returnKeyType="done" secureTextEntry={true} autoCorrect={false} />
+                            <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 active:bg-blue-700" onPress={handleSignUp}>
+                                <Text className="text-white text-base font-semibold text-center">Login</Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
