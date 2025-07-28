@@ -3,19 +3,19 @@ import { View, Text, ActivityIndicator } from "react-native";
 import ApiEndpoint from "../utils/endpointAPI";
 import { useEffect, useState } from "react";
 import { useUser } from "../hooks/context";
-
+import Alerts from "./Alerts";
 
 export default function Notifications() {
-    const [ notifications, setNotifications ] = useState();
-    const [ refreshing, setRefreshing ] = useState(false);
-    const [ loading, setLoading ] = useState(true);
-    const [ error, setError ] = useState(null);
+    const [notifications, setNotifications] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const endpoint = ApiEndpoint();
     const { userId } = useUser();
 
     useEffect(() => {
-        fetchNotifications();        
-    },[])
+        fetchNotifications();
+    }, [])
 
     const onRefresh = async () => {
         setRefreshing(true);
@@ -23,9 +23,9 @@ export default function Notifications() {
         setRefreshing(false);
     }
 
-    async function fetchNotifications() {        
+    async function fetchNotifications() {
         setLoading(true);
-        setError(null); 
+        setError(null);
         try {
             const response = await fetch(endpoint + `/waterflow/get-notifications?user_id=${userId}`, {
                 method: 'GET',
@@ -36,10 +36,8 @@ export default function Notifications() {
 
             const result = await response.json()
 
-            console.log(result)
-
             if (result.status === 'successfuly') {
-                setNotifications(result.notifications)
+                setNotifications(result.notifications)                
             } else {
                 setError('Error al cargar los datos, inténtalo más tarde.')
             }
@@ -80,15 +78,27 @@ export default function Notifications() {
 
     return (
         <ScrollView
-        className="flex-1 bg-gray-50 "
-        contentContainerStyle={{ 
-            padding: 32                
-        }}         
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-            <Text>Tonotos</Text>
+            className="flex-1 bg-gray-50 "
+            contentContainerStyle={{
+                padding: 32
+            }}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+            
+            {!loading && notifications.length > 0 && (
+                <View className="flex-1 w-full gap-5">
+                    {notifications.map((notification, index) => (
+                        <View key={index}>
+                            <Alerts
+                                notification_type={notification.notification_type}
+                                message={notification.message}
+                            />
+                        </View>
+                    ))}
+                </View>
+            )}
         </ScrollView>
     );
 }
