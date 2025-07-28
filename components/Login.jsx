@@ -1,14 +1,16 @@
 import { Text, View, Image, TextInput, Alert, Pressable } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from "expo-router"
 import ApiEndpoint from "../utils/endpointAPI"
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useUser } from '../hooks/context';
 
 export default function Login() {
     const endpoint = ApiEndpoint()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const insets = useSafeAreaInsets();
+    const { userId, setUserId } = useUser();
     // hook for the routing
     const router = useRouter();
     // validate that all the inputs are filled
@@ -19,6 +21,12 @@ export default function Login() {
         }
         return true
     }
+
+    useEffect(() => {
+        if (userId) {
+            router.replace('/tabs/homeRoute');
+        }
+    }, [userId])
 
     const handleLogin = async () => {
         if(!validateFileds()) return;
@@ -38,7 +46,7 @@ export default function Login() {
             const data = await response.json();
 
             if (response.ok) {
-                router.replace({pathname: '/tabs/homeRoute', params: { user_id: data.user.id }});                
+                setUserId(data.user.id);                                
 
             } else {
                 Alert.alert('Error', 'Credenciales incorrectas');
