@@ -88,7 +88,7 @@ export default function Notifications() {
             }>
             
             {!loading && notifications.length > 0 && (
-                <View className="flex-1 w-full gap-5">
+                <View className="flex-1 w-full">
                     {notifications.map((notification, index) => (
                         <View key={index}>
                             <Alerts
