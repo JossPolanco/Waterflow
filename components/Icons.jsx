@@ -11,7 +11,7 @@ import { colorScheme } from 'nativewind';
 import { Image } from 'react-native';
 
 export const LogoIcon = (size) => (
-    <Image name="waterflow_logo" size={size} source={require('../assets/splash-icon.png')} />
+    <Image name="waterflow_logo" size={size} source={require('../assets/splash.png')} />
 );
 
 export const HomeIcon = (size, color = 'black') => (

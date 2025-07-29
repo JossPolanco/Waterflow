@@ -71,23 +71,23 @@ export default function Login() {
                         <View>
                             <Image className="w-32 h-32" source={require('../assets/logo_without_bg.png')} />
                         </View>
-                        <View className="justify-start">
-                            <Text className="text-7xl text-white font-bold">Hello!</Text>
-                            <Text className="text-2xl text-white font-bold">Welcome back to Waterflow</Text>
+                        <View className="justify-center">
+                            <Text className="text-7xl text-white text-center font-bold">Hola!</Text>
+                            <Text className="text-2xl text-white font-bold">Bienvenido de nuevo a Waterflow</Text>
                         </View>
                     </View>
                 </View>
-                <View className="gap-5 px-10 flex-1 rounded-t-[60] pt-16 bg-gray-100">
-                    <Text className="text-blue-200 text-4xl font-bold">Login</Text>
-                    <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Username' onChangeText={setUsername} returnKeyType="next" autoCorrect={false}/>
-                    <TextInput className="bg-white rounded-full px-4 h-14" placeholder='Password' onChangeText={setPassword} returnKeyType="done" secureTextEntry={true} autoCorrect={false}/>
+                <View className="gap-5 px-10 flex-1 rounded-t-[60] pt-12 bg-gray-100">
+                    <Text className="text-blue-200 text-4xl font-bold">iniciar sesión</Text>
+                    <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Usuario' onChangeText={setUsername} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                    <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Contraseña' onChangeText={setPassword} returnKeyType="done" secureTextEntry={true} autoCorrect={false} placeholderTextColor="#94a3b8"/>
                     <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 active:bg-blue-700" onPress={handleLogin}>
-                        <Text className="text-white text-base font-semibold text-center">Login</Text>
+                        <Text className="text-white text-base font-semibold text-center">iniciar sesión</Text>
                     </Pressable>
-                    <View className="flex-row justify-center">
-                        <Text className="text-gray-500">Don't have an account? </Text>
+                    <View className="flex-row justify-center gap-2">
+                        <Text className="text-gray-500">¿No tienes una cuenta?</Text>
                         <Pressable onPress={() => router.push('/auth/signUpRoute')}>
-                            <Text className="text-blue-500 font-semibold">Sign up</Text>
+                            <Text className="text-blue-500 font-semibold">Crear cuenta</Text>
                         </Pressable>
                     </View>
                 </View>

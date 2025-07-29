@@ -15,8 +15,7 @@ export default function Dashboard() {
     const [error, setError] = useState(null);
     const insets = useSafeAreaInsets()
     
-    useEffect(() => {
-        console.log('MAC', waterflow_mac)
+    useEffect(() => {        
         loadData()
     }, [])
 

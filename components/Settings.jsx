@@ -210,7 +210,7 @@ export default function Settings() {
             <PencilIcon size={30} color="#1E3441" />
             <Text className="text-black font-bold text-xl">Nombre del dispositivo:</Text>
           </View>
-            <TextInput className="bg-gray-200 border-gray-300 border-2 rounded-full px-4 h-14 w-full" placeholder='Nombre del dispositivo' onChangeText={setDeviceName} value={deviceName} />
+            <TextInput className="bg-gray-200 border-gray-300 border-2 rounded-full px-4 h-14 w-full" style={{ color: "#1e293b" }} placeholder='Nombre del dispositivo' onChangeText={setDeviceName} value={deviceName} placeholderTextColor="#94a3b8"/>
         </View>
 
           {/* auto close temperature */}
@@ -240,6 +240,7 @@ export default function Settings() {
                 setValue={setTempValue}
                 setItems={setItems}
                 placeholder="-1°C"
+                placeholderTextColor="#94a3b8"
                 style={{
                   backgroundColor: "rgba(190, 190, 190, 0.2)",
                   borderColor: "#d1d5db",
