@@ -39,7 +39,7 @@ export default function Notifications() {
             if (result.status === 'successfuly') {
                 setNotifications(result.notifications)                
             } else {
-                setError('Error al cargar los datos, inténtalo más tarde.')
+                setNotifications([]);
             }
         } catch (error) {
             console.log(error)

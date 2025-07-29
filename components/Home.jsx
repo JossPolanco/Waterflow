@@ -38,7 +38,12 @@ export default function Home(){
             });
 
             const data = await response.json();
-            setWaterflowDevices(data.waterflows);
+
+            if(data.status == 'success'){
+                setWaterflowDevices(data.waterflows);
+            } else {
+                setWaterflowDevices([]);
+            }
         } catch (error) {
             console.log('Error al obtener dispositivos:', error);
             setError('Error al cargar los datos')
@@ -62,6 +67,17 @@ export default function Home(){
                 <View className="mx-4 bg-red-100 border border-red-400 rounded-lg p-4">
                     <Text className="text-red-700">{error}</Text>
                 </View>
+            </View>
+        )
+    }
+
+    if(waterflowDevices.length == 0){
+        return (
+            <View className="flex-1 justify-center items-center">
+                <View>
+                    <Text className="text-blue-700">Actualmente no cuentas con dispositivos Waterflow.</Text>
+                </View>
+                <Text className="text-blue-700">Presiona + para agregar uno nuevo.</Text>
             </View>
         )
     }
