@@ -1,7 +1,7 @@
-import { View, Input, Text, Pressable, Alert, TouchableOpacity, Clipboard  } from "react-native"
+import { View, Text, Pressable, Alert, TouchableOpacity, Clipboard  } from "react-native"
 import { ScrollView } from "react-native-gesture-handler";
 import ApiEndpoint from "../utils/endpointAPI";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser } from "../hooks/context";
 
 export default function LinkWf() {
