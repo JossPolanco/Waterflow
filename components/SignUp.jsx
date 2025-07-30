@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ApiEndpoint from "../utils/endpointAPI"
 import { useRouter } from "expo-router"
 import { useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function SignUp() {
     const endpoint = ApiEndpoint();
@@ -77,34 +78,39 @@ export default function SignUp() {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={dismissKeyboard}>
-            <View className="flex-1 justify-center bg-blue-200 gap-5" style={{ paddingTop: insets.top }}>
-                <View className="justify-center items-center pt-10 gap-2">
-                    <Image className="size-32" source={require('../assets/logo_without_bg.png')} />
-                    <Text className="text-3xl text-white font-bold">Crea tu cuenta</Text>
-                </View>
-                <View className="bg-gray-100 flex-1 rounded-t-[60] px-10 gap-5">
-                    <View className="flex-row justify-start pt-6">
-                        <Pressable onPress={() => router.back()}>
-                            <Text className="text-blue-300 font-semibold">← Volver</Text>
-                        </Pressable>
+        <ScrollView style={{ paddingBottom: insets.bottom}}>
+            <TouchableWithoutFeedback onPress={dismissKeyboard}>
+                <View className="flex-1 justify-center bg-blue-200 gap-5">
+                    <View className="justify-center items-center pt-10 gap-2">
+                        <Image className="size-32" source={require('../assets/logo_without_bg.png')} />
+                        <Text className="text-3xl text-white font-bold">Crea tu cuenta</Text>
                     </View>
-                    <View className="gap-3">
-                        <Text className="text-blue-200 text-4xl font-bold mb-2">Crear cuenta</Text>
-                        <View className="gap-5">
-                            <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Nombre' onChangeText={setFirstname} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
-                            <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Apellido' onChangeText={setLastname} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
-                            <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Usuario' onChangeText={setUsername} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
-                            <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Email' onChangeText={setEmail} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
-                            <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Contraseña' onChangeText={setPassword} returnKeyType="next" secureTextEntry={true} autoCorrect={false} placeholderTextColor="#94a3b8"/>
-                            <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Confirmar contraseña' onChangeText={setConfirmPassword} returnKeyType="done" secureTextEntry={true} autoCorrect={false} placeholderTextColor="#94a3b8"/>
-                            <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 active:bg-blue-700" onPress={handleSignUp}>
-                                <Text className="text-white text-base font-semibold text-center">Crear cuenta</Text>
+                    <View className="bg-gray-100 flex-1 rounded-t-[60] px-10 gap-5">
+                        <View className="flex-row justify-start pt-6">
+                            <Pressable onPress={() => router.back()}>
+                                <Text className="text-blue-300 font-semibold">← Volver</Text>
                             </Pressable>
+                        </View>
+                        <View className="gap-3">
+                            <Text className="text-blue-200 text-4xl font-bold mb-2">Crear cuenta</Text>
+                            <View className="gap-5">
+                                <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Nombre' onChangeText={setFirstname} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                                <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Apellido' onChangeText={setLastname} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                                <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Email' onChangeText={setEmail} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                                <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Usuario' onChangeText={setUsername} returnKeyType="next" autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                                <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Contraseña' onChangeText={setPassword} returnKeyType="next" secureTextEntry={true} autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                                <TextInput className="bg-white rounded-full px-4 h-14" style={{ color: "#1e293b" }} placeholder='Confirmar contraseña' onChangeText={setConfirmPassword} returnKeyType="done" secureTextEntry={true} autoCorrect={false} placeholderTextColor="#94a3b8"/>
+                                <Pressable className="bg-blue-500 rounded-2xl py-4 items-center mt-2 active:bg-blue-700" onPress={handleSignUp}>
+                                    <Text className="text-white text-base font-semibold text-center">Crear cuenta</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                        <View className="mt-28">
+                            <Text className="text-gray-100">this fix some screen issues c:</Text>
                         </View>
                     </View>
                 </View>
-            </View>
-        </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback>
+        </ScrollView>
     );
 }

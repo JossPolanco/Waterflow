@@ -93,3 +93,7 @@ export const MidTemperatureIcon = ({size = 24, color = 'black'}) => (
 export const HighTemperatureIcon = ({size = 24, color = 'black'}) => (
     <FontAwesome6 name="temperature-high" size={size} color={color} />
 );
+
+export const AddIcon = ({size = 24, color = 'black'}) => (
+    <Ionicons name="add-circle" size={size} color={color} />
+);
