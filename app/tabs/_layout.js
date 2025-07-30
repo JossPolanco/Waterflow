@@ -1,10 +1,7 @@
+import { HomeIcon, NotificationsIcon, AddIcon } from "../../components/Icons";
 import { Tabs } from "expo-router";
-import { HomeIcon, DashboardIcon, NotificationsIcon, SettingsIcon, LogoUser, CrossIcon } from "../../components/Icons";
-import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function NavigationLayout() {
-  const insets = useSafeAreaInsets();
+export default function NavigationLayout() {  
   return (
     <Tabs
       screenOptions={{
@@ -32,6 +29,13 @@ export default function NavigationLayout() {
         options={{
           title: 'Notificaciones',          
           tabBarIcon: ({ color, size }) => NotificationsIcon(size, color),
+        }}
+      />
+      <Tabs.Screen 
+        name="linkWfRoute"
+        options={{
+          title: "Añadir",
+          tabBarIcon: ({ color, size }) => AddIcon(size, color)
         }}
       />
     </Tabs>

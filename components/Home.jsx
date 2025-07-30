@@ -77,7 +77,7 @@ export default function Home(){
                 <View>
                     <Text className="text-blue-700">Actualmente no cuentas con dispositivos Waterflow.</Text>
                 </View>
-                <Text className="text-blue-700">Presiona + para agregar uno nuevo.</Text>
+                <Text className="text-blue-700">Genere un token de vinculación desde la sección “Añadir” </Text>
             </View>
         )
     }
