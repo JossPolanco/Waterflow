@@ -138,7 +138,7 @@ export default function LinkWf() {
                         <Text className="text-white font-bold text-center">Generar Token</Text>
                     </Pressable>
 
-                    {token ? (
+                    {!error ? (
                         <TouchableOpacity
                             onPress={copyToClipboard}
                             className="bg-gray-100 border-2 border-dashed border-blue-300 rounded-xl px-4 py-3 min-w-60"
@@ -152,7 +152,7 @@ export default function LinkWf() {
                         </TouchableOpacity>
                     ) : (
                         <View className="bg-gray-100 rounded-xl px-4 py-3 min-w-60">
-                            <Text className="text-gray-400 text-center">
+                            <Text className="text-red-400 text-center">
                                 {error}
                             </Text>
                         </View>
