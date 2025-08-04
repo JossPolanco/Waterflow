@@ -47,11 +47,13 @@ export default function Dashboard() {
             })
     
             const result = await response.json()        
+
+            console.log('DATA DE HISTORIAL TEMPERATURA: ', result)
     
             if(result.status === 'successfuly' && result.results) {
                 setTemperatureHistory(result.results);
             } else {
-                setError('Error al cargar los datos');
+                console.log('Error al cargar los datos');
             }
 
         } catch (error) {
@@ -69,12 +71,14 @@ export default function Dashboard() {
                 }
             })
     
-            const result = await response.json()            
+            const result = await response.json()    
+            
+            console.log('DATA HISTORIAL ESTADO: ', result)
     
             if(result.history) {
                 setStateHistory(result.history);
             } else {
-                setError('Error al cargar los datos');
+                console.log('Error al cargar los datos');
             }
         } catch (error) {
             console.log('Error was found: ', error);
