@@ -1,15 +1,15 @@
-import { View, Pressable, Switch, Text } from "react-native"
-import { useEffect, useState } from "react";
 import { TuneSettingsIcon, DashboardIcon, LockIcon, WaterIcon, LowTemperatureIcon, HighTemperatureIcon, MidTemperatureIcon} from "./Icons";
-import { Redirect } from 'expo-router';
-import { useRouter } from "expo-router"
+import { View, Pressable, Switch, Text } from "react-native"
 import ApiEndpoint from "../utils/endpointAPI"
+import { useRouter } from "expo-router"
+import { useState } from "react";
 
 export default function Waterflow({mac = '', waterflowName = '', isConnected = false, isOpen = false, temp = 'N/A'}) {
     const endpoint = ApiEndpoint();
     const [waterIsConnected, waterSetIsConnected] = useState(isConnected);
     const [waterIsOpen, setWaterIsOpen] = useState(isOpen)
     const [currentTemp, setCurrentTemp] = useState(temp)
+    const [canSwitch, setCanSwitch] = useState(true);
     const router = useRouter()
 
     const toggleIsOpen = () => setWaterIsOpen(prev => {
@@ -22,8 +22,18 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
 
         sendCommand(data);
 
+        delayForSwitch()
+
         return newValue;
     });
+
+    function delayForSwitch(){
+        setCanSwitch(false)
+
+        setTimeout(() => {
+            setCanSwitch(true)
+        }, 4000)
+    }
     
     async function sendCommand(data) {          
         // send the order to open the waterflow
@@ -38,9 +48,9 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
         const result = await response.json()        
 
         if (result.status == 'success') {                
-            console.log('✅ Everithing was right');
+            console.log('Everithing was right');
         } else {                
-            console.log('❌ Something went wrong with server: ', result.message);
+            console.log('Something went wrong with server: ', result.message);
             alert(`Error: ${result.message}`);
         }             
     }
@@ -79,16 +89,24 @@ export default function Waterflow({mac = '', waterflowName = '', isConnected = f
                                 Control de Flujo
                             </Text>
                         </View>
-
-                        <View className="bg-white p-2 rounded-full shadow-sm">
-                            <Switch
-                                trackColor={{false: '#D1D5DB', true: '#93C5FD'}}
-                                thumbColor={waterIsOpen ? '#3B82F6' : '#ffffff'}
-                                ios_backgroundColor="#D1D5DB"
-                                onValueChange={toggleIsOpen}
-                                value={waterIsOpen}
-                            />
-                        </View>
+                        {canSwitch ? (
+                            <View className="bg-white p-2 rounded-full shadow-sm">
+                                <Switch
+                                    trackColor={{false: '#D1D5DB', true: '#93C5FD'}}
+                                    thumbColor={waterIsOpen ? '#3B82F6' : '#ffffff'}
+                                    ios_backgroundColor="#D1D5DB"
+                                    onValueChange={toggleIsOpen}
+                                    value={waterIsOpen}
+                                />
+                            </View>
+                        ) : (
+                            <View className="bg-gray-200 p-2 rounded-full shadow-sm">
+                                <Switch
+                                    trackColor={{false: '#8F9092', true: '#B9B9B9'}}
+                                    value={waterIsOpen}                                                                                                            
+                                />
+                            </View>
+                        )}
                     </View>
                 </View>
 
