@@ -193,7 +193,7 @@ export default function Settings() {
     };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    
 
       <View className="justify-center items-center px-6 gap-4 bg-gray-100" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
         {/* shows this while is loading all the devices */}
@@ -216,7 +216,7 @@ export default function Settings() {
           {/* auto close temperature */}
           <View className="flex-row justify-start items-center gap-4 mt-3">
               <TempIcon size={35} color="#1E3441" />
-              <Text className="font-bold text-xl text-[#1E3441]">
+              <Text className="font-bold text-[#1E3441]">
                 Cierre automático por temperatura:
               </Text>
               <Switch
@@ -225,7 +225,7 @@ export default function Settings() {
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleTempSwitch}
               value={isTempEnabled}
-              style={{ transform: [{ scale: 1.3 }] }}
+              style={{ transform: [{ scale: 1 }] }}
             />
             </View>
 
@@ -356,6 +356,6 @@ export default function Settings() {
           </View>
       )}
       </View>
-    </TouchableWithoutFeedback>
+    
   );
 }
